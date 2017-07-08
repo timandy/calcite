@@ -39,6 +39,7 @@ import org.apache.calcite.linq4j.function.Predicate1;
 import org.apache.calcite.linq4j.function.Predicate2;
 import org.apache.calcite.linq4j.tree.ConstantExpression;
 import org.apache.calcite.linq4j.tree.Expressions;
+import org.apache.calcite.linq4j.tree.FunctionExpression;
 import org.apache.calcite.linq4j.tree.ParameterExpression;
 import org.junit.Test;
 
@@ -1263,11 +1264,12 @@ public class Linq4jTest {
         // first, use a lambda
         ParameterExpression parameter =
                 Expressions.parameter(Employee.class);
+        //noinspection unchecked
         final Queryable<Employee> nh =
                 Linq4j.asEnumerable(emps)
                         .asQueryable()
                         .where(
-                                Expressions.lambda(
+                                (FunctionExpression<? extends Predicate1<Employee>>) Expressions.lambda(
                                         Predicate1.class,
                                         Expressions.equal(
                                                 Expressions.field(
@@ -1292,11 +1294,12 @@ public class Linq4jTest {
                 Expressions.parameter(Employee.class);
         ParameterExpression parameterN =
                 Expressions.parameter(Integer.TYPE);
+        //noinspection unchecked
         final Queryable<Employee> nh3 =
                 Linq4j.asEnumerable(emps)
                         .asQueryable()
                         .whereN(
-                                Expressions.lambda(
+                                (FunctionExpression<? extends Predicate2<Employee, Integer>>) Expressions.lambda(
                                         Predicate2.class,
                                         Expressions.andAlso(
                                                 Expressions.equal(
