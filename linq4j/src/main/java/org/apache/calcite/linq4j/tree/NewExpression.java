@@ -88,11 +88,7 @@ public class NewExpression extends Expression {
                 : that.memberDeclarations != null) {
             return false;
         }
-        if (!type.equals(that.type)) {
-            return false;
-        }
-
-        return true;
+        return type.equals(that.type);
     }
 
     @Override

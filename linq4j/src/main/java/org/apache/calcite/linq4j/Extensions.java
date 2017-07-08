@@ -223,7 +223,7 @@ public abstract class Extensions {
     }
 
     static <T extends Comparable<T>> Comparator<T> comparableComparator() {
-        //noinspection unchecked
+        //noinspection unchecked,RedundantCast
         return (Comparator<T>) (Comparator) COMPARABLE_COMPARATOR;
     }
 }

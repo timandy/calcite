@@ -190,11 +190,7 @@ public class BinaryExpression extends Expression {
         if (!expression1.equals(that.expression1)) {
             return false;
         }
-        if (primitive != that.primitive) {
-            return false;
-        }
-
-        return true;
+        return primitive == that.primitive;
     }
 
     @Override

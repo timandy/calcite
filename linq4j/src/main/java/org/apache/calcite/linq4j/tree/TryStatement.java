@@ -80,12 +80,7 @@ public class TryStatement extends Statement {
         if (!catchBlocks.equals(that.catchBlocks)) {
             return false;
         }
-        if (fynally != null ? !fynally.equals(that.fynally) : that.fynally
-                != null) {
-            return false;
-        }
-
-        return true;
+        return fynally != null ? fynally.equals(that.fynally) : that.fynally == null;
     }
 
     @Override

@@ -72,11 +72,7 @@ public class ArrayLengthRecordField implements Types.RecordField {
         if (!clazz.equals(that.clazz)) {
             return false;
         }
-        if (!fieldName.equals(that.fieldName)) {
-            return false;
-        }
-
-        return true;
+        return fieldName.equals(that.fieldName);
     }
 
     @Override

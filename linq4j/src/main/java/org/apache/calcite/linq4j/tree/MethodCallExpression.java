@@ -130,12 +130,8 @@ public class MethodCallExpression extends Expression {
         if (!method.equals(that.method)) {
             return false;
         }
-        if (targetExpression != null ? !targetExpression.equals(that
-                .targetExpression) : that.targetExpression != null) {
-            return false;
-        }
-
-        return true;
+        return targetExpression != null ? targetExpression.equals(that
+                .targetExpression) : that.targetExpression == null;
     }
 
     @Override

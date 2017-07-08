@@ -82,11 +82,7 @@ public class TernaryExpression extends Expression {
         if (!expression1.equals(that.expression1)) {
             return false;
         }
-        if (!expression2.equals(that.expression2)) {
-            return false;
-        }
-
-        return true;
+        return expression2.equals(that.expression2);
     }
 
     @Override

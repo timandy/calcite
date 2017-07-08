@@ -103,11 +103,7 @@ public class ConstructorDeclaration extends MemberDeclaration {
         if (!parameters.equals(that.parameters)) {
             return false;
         }
-        if (!resultType.equals(that.resultType)) {
-            return false;
-        }
-
-        return true;
+        return resultType.equals(that.resultType);
     }
 
     @Override

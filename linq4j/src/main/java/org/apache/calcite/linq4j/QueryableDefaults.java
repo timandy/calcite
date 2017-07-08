@@ -896,7 +896,7 @@ public abstract class QueryableDefaults {
                                              FunctionExpression<Predicate1<T>> predicate) {
         return skipWhileN(source,
                 Expressions.lambda(
-                        Functions.<T, Integer>toPredicate2(predicate.getFunction())));
+                        Functions.toPredicate2(predicate.getFunction())));
     }
 
     /**
@@ -1032,7 +1032,7 @@ public abstract class QueryableDefaults {
                                              FunctionExpression<Predicate1<T>> predicate) {
         return takeWhileN(source,
                 Expressions.lambda(
-                        Functions.<T, Integer>toPredicate2(predicate.getFunction())));
+                        Functions.toPredicate2(predicate.getFunction())));
     }
 
     /**
@@ -1173,7 +1173,7 @@ public abstract class QueryableDefaults {
          */
         @SuppressWarnings("unchecked")
         <U> U castSingle() {
-            return ((Queryable<U>) (Queryable) this).single();
+            return ((Queryable<U>) this).single();
         }
 
         /**
@@ -1182,7 +1182,7 @@ public abstract class QueryableDefaults {
          */
         @SuppressWarnings("unchecked")
         public <U> Queryable<U> castQueryable() {
-            return (Queryable<U>) (Queryable) this;
+            return (Queryable<U>) this;
         }
     }
 

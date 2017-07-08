@@ -101,11 +101,7 @@ public class DeclarationStatement extends Statement {
                 .initializer != null) {
             return false;
         }
-        if (!parameter.equals(that.parameter)) {
-            return false;
-        }
-
-        return true;
+        return parameter.equals(that.parameter);
     }
 
     @Override

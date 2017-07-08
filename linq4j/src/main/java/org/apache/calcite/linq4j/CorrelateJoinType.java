@@ -44,7 +44,7 @@ public enum CorrelateJoinType {
      * <p>
      * <p>Note: if B.b is nullable and B has nulls, no rows must be returned.
      */
-    ANTI;
+    ANTI
 }
 
 // End CorrelateJoinType.java

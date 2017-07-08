@@ -96,11 +96,7 @@ public class MemberExpression extends Expression {
                 .expression != null) {
             return false;
         }
-        if (!field.equals(that.field)) {
-            return false;
-        }
-
-        return true;
+        return field.equals(that.field);
     }
 
     @Override

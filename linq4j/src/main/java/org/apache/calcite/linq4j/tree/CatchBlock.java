@@ -45,12 +45,8 @@ public class CatchBlock {
         if (body != null ? !body.equals(that.body) : that.body != null) {
             return false;
         }
-        if (parameter != null ? !parameter.equals(that.parameter) : that
-                .parameter != null) {
-            return false;
-        }
-
-        return true;
+        return parameter != null ? parameter.equals(that.parameter) : that
+                .parameter == null;
     }
 
     @Override

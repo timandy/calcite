@@ -102,11 +102,7 @@ public class BlockStatement extends Statement {
 
         BlockStatement that = (BlockStatement) o;
 
-        if (!statements.equals(that.statements)) {
-            return false;
-        }
-
-        return true;
+        return statements.equals(that.statements);
     }
 
     @Override

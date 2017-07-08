@@ -279,11 +279,7 @@ public class ConstantExpression extends Expression {
 
         ConstantExpression that = (ConstantExpression) o;
 
-        if (value != null ? !value.equals(that.value) : that.value != null) {
-            return false;
-        }
-
-        return true;
+        return value != null ? value.equals(that.value) : that.value == null;
     }
 
     @Override

@@ -61,11 +61,7 @@ public class ReflectedPseudoField implements PseudoField {
 
         ReflectedPseudoField that = (ReflectedPseudoField) o;
 
-        if (!field.equals(that.field)) {
-            return false;
-        }
-
-        return true;
+        return field.equals(that.field);
     }
 
     @Override

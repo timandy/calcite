@@ -60,7 +60,7 @@ public final class FunctionExpression<F extends Function<?>>
 
     public FunctionExpression(F function) {
         this((Class) function.getClass(), function, null,
-                Collections.<ParameterExpression>emptyList());
+                Collections.emptyList());
     }
 
     public FunctionExpression(Class<F> type, BlockStatement body,
@@ -252,11 +252,7 @@ public final class FunctionExpression<F extends Function<?>>
                 != null) {
             return false;
         }
-        if (!parameterList.equals(that.parameterList)) {
-            return false;
-        }
-
-        return true;
+        return parameterList.equals(that.parameterList);
     }
 
     @Override

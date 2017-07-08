@@ -58,9 +58,9 @@ public class FunctionTest {
                             }
                         }).toString());
         Assert.assertSame(Collections.emptyList(),
-                Functions.filter(abc, Functions.<String>falsePredicate1()));
+                Functions.filter(abc, Functions.falsePredicate1()));
         Assert.assertSame(abc,
-                Functions.filter(abc, Functions.<String>truePredicate1()));
+                Functions.filter(abc, Functions.truePredicate1()));
     }
 
     /**
@@ -78,9 +78,9 @@ public class FunctionTest {
                             }
                         }));
         Assert.assertFalse(
-                Functions.exists(empty, Functions.<Integer>falsePredicate1()));
+                Functions.exists(empty, Functions.falsePredicate1()));
         Assert.assertFalse(
-                Functions.exists(empty, Functions.<Integer>truePredicate1()));
+                Functions.exists(empty, Functions.truePredicate1()));
     }
 
     /**
@@ -112,9 +112,9 @@ public class FunctionTest {
                             }
                         }));
         Assert.assertTrue(
-                Functions.all(empty, Functions.<Integer>falsePredicate1()));
+                Functions.all(empty, Functions.falsePredicate1()));
         Assert.assertTrue(
-                Functions.all(empty, Functions.<Integer>truePredicate1()));
+                Functions.all(empty, Functions.truePredicate1()));
     }
 
     /**

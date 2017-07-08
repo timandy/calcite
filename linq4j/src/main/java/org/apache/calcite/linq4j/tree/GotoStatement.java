@@ -124,12 +124,8 @@ public class GotoStatement extends Statement {
         if (kind != that.kind) {
             return false;
         }
-        if (labelTarget != null ? !labelTarget.equals(that.labelTarget) : that
-                .labelTarget != null) {
-            return false;
-        }
-
-        return true;
+        return labelTarget != null ? labelTarget.equals(that.labelTarget) : that
+                .labelTarget == null;
     }
 
     @Override

@@ -74,11 +74,7 @@ public class ConditionalExpression extends AbstractNode {
 
         ConditionalExpression that = (ConditionalExpression) o;
 
-        if (!expressionList.equals(that.expressionList)) {
-            return false;
-        }
-
-        return true;
+        return expressionList.equals(that.expressionList);
     }
 
     @Override

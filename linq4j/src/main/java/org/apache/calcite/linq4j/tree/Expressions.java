@@ -266,7 +266,7 @@ public abstract class Expressions {
      */
     public static BlockStatement block(
             Iterable<? extends Statement> statements) {
-        return block((Type) null, statements);
+        return block(null, statements);
     }
 
     /**
@@ -527,7 +527,7 @@ public abstract class Expressions {
      */
     public static ConditionalExpression condition(Expression test,
                                                   Expression ifTrue, Expression ifFalse, Type type) {
-        return new ConditionalExpression(Arrays.<Node>asList(test, ifFalse, ifTrue),
+        return new ConditionalExpression(Arrays.asList(test, ifFalse, ifTrue),
                 type);
     }
 
@@ -965,7 +965,7 @@ public abstract class Expressions {
      * block with an if statement.
      */
     public static ConditionalStatement ifThen(Expression test, Node ifTrue) {
-        return new ConditionalStatement(Arrays.<Node>asList(test, ifTrue));
+        return new ConditionalStatement(Arrays.asList(test, ifTrue));
     }
 
     /**
@@ -974,7 +974,7 @@ public abstract class Expressions {
      */
     public static ConditionalStatement ifThenElse(Expression test, Node ifTrue,
                                                   Node ifFalse) {
-        return new ConditionalStatement(Arrays.<Node>asList(test, ifTrue, ifFalse));
+        return new ConditionalStatement(Arrays.asList(test, ifTrue, ifFalse));
     }
 
     /**
@@ -1913,7 +1913,7 @@ public abstract class Expressions {
      */
     public static NewExpression new_(Constructor constructor) {
         return new_(
-                constructor.getDeclaringClass(), Collections.<Expression>emptyList());
+                constructor.getDeclaringClass(), Collections.emptyList());
     }
 
     /**
@@ -1921,7 +1921,7 @@ public abstract class Expressions {
      * parameterless constructor of the specified type.
      */
     public static NewExpression new_(Type type) {
-        return new_(type, Collections.<Expression>emptyList());
+        return new_(type, Collections.emptyList());
     }
 
     /**
@@ -2835,7 +2835,7 @@ public abstract class Expressions {
      * finally block and no catch statements.
      */
     public static TryStatement tryFinally(Statement body, Statement finally_) {
-        return new TryStatement(body, Collections.<CatchBlock>emptyList(),
+        return new TryStatement(body, Collections.emptyList(),
                 finally_);
     }
 

@@ -56,12 +56,8 @@ public class LabelStatement extends Statement {
 
         LabelStatement that = (LabelStatement) o;
 
-        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that
-                .defaultValue != null) {
-            return false;
-        }
-
-        return true;
+        return defaultValue != null ? defaultValue.equals(that.defaultValue) : that
+                .defaultValue == null;
     }
 
     @Override

@@ -80,11 +80,7 @@ public class FieldDeclaration extends MemberDeclaration {
                 .initializer != null) {
             return false;
         }
-        if (!parameter.equals(that.parameter)) {
-            return false;
-        }
-
-        return true;
+        return parameter.equals(that.parameter);
     }
 
     @Override

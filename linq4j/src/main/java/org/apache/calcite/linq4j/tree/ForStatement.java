@@ -102,11 +102,7 @@ public class ForStatement extends Statement {
         if (!declarations.equals(that.declarations)) {
             return false;
         }
-        if (post != null ? !post.equals(that.post) : that.post != null) {
-            return false;
-        }
-
-        return true;
+        return post != null ? post.equals(that.post) : that.post == null;
     }
 
     @Override

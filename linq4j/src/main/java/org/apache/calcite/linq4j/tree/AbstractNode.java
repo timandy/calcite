@@ -90,11 +90,7 @@ public abstract class AbstractNode implements Node {
         if (nodeType != that.nodeType) {
             return false;
         }
-        if (type != null ? !type.equals(that.type) : that.type != null) {
-            return false;
-        }
-
-        return true;
+        return type != null ? type.equals(that.type) : that.type == null;
     }
 
     @Override

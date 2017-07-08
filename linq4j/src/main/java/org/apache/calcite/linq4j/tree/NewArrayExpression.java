@@ -91,12 +91,8 @@ public class NewArrayExpression extends Expression {
         if (bound != null ? !bound.equals(that.bound) : that.bound != null) {
             return false;
         }
-        if (expressions != null ? !expressions.equals(that.expressions) : that
-                .expressions != null) {
-            return false;
-        }
-
-        return true;
+        return expressions != null ? expressions.equals(that.expressions) : that
+                .expressions == null;
     }
 
     @Override

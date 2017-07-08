@@ -44,7 +44,7 @@ public class DeterministicCodeOptimizer extends ClassDeclarationFinder {
     private static final Pattern PREFIX_PATTERN =
             Pattern.compile(Pattern.quote(FIELD_PREFIX));
     private static final Set<Class> DETERMINISTIC_CLASSES =
-            ImmutableSet.<Class>of(Byte.class, Boolean.class, Short.class,
+            ImmutableSet.of(Byte.class, Boolean.class, Short.class,
                     Integer.class, Long.class, BigInteger.class, BigDecimal.class,
                     String.class, Math.class);
     /**

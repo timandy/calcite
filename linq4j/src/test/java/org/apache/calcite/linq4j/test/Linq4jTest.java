@@ -145,7 +145,7 @@ public class Linq4jTest {
     //CHECKSTYLE: IGNORE 1
     public static final Department[] depts = {
             new Department("Sales", 10, Arrays.asList(emps[0], emps[2], emps[3])),
-            new Department("HR", 20, Collections.<Employee>emptyList()),
+            new Department("HR", 20, Collections.emptyList()),
             new Department("Marketing", 30, ImmutableList.of(emps[1])),
     };
     private static final Function2<Object, Object, Integer> PAIR_SELECTOR =
@@ -404,7 +404,7 @@ public class Linq4jTest {
     public void testToMapWithComparer() {
         final Map<String, String> map =
                 Linq4j.asEnumerable(Arrays.asList("foo", "bar", "far"))
-                        .toMap(Functions.<String>identitySelector(), new EqualityComparer<String>() {
+                        .toMap(Functions.identitySelector(), new EqualityComparer<String>() {
                             public boolean equal(String v1, String v2) {
                                 return String.CASE_INSENSITIVE_ORDER.compare(v1, v2) == 0;
                             }
@@ -433,7 +433,7 @@ public class Linq4jTest {
     public void testToMap2WithComparer() {
         final Map<String, String> map =
                 Linq4j.asEnumerable(Arrays.asList("foo", "bar", "far"))
-                        .toMap(Functions.<String>identitySelector(),
+                        .toMap(Functions.identitySelector(),
                                 new Function1<String, String>() {
                                     public String apply(String x) {
                                         return x == null ? null : x.toUpperCase(Locale.ROOT);
@@ -513,7 +513,7 @@ public class Linq4jTest {
                                 return v1 + ":" + v2.count();
                             }
                         })
-                        .orderBy(Functions.<String>identitySelector())
+                        .orderBy(Functions.identitySelector())
                         .toList().toString());
     }
 
@@ -882,7 +882,7 @@ public class Linq4jTest {
 
         StringBuilder buf = new StringBuilder();
         for (Grouping<String, Employee> grouping
-                : lookup.orderBy(Linq4jTest.<String, Employee>groupingKeyExtractor())) {
+                : lookup.orderBy(Linq4jTest.groupingKeyExtractor())) {
             buf.append(grouping).append("\n");
         }
         assertEquals(
@@ -913,7 +913,7 @@ public class Linq4jTest {
                                         return v1 + ": " + v2;
                                     }
                                 })
-                        .orderBy(Functions.<String>identitySelector())
+                        .orderBy(Functions.identitySelector())
                         .toList()
                         .toString();
         assertEquals(
@@ -1007,13 +1007,13 @@ public class Linq4jTest {
         assertThat(enumerator.moveNext(), is(false));
 
         final Enumerator<Integer> enumerator2 =
-                Linq4j.transform(Linq4j.<String>emptyEnumerator(), func);
+                Linq4j.transform(Linq4j.emptyEnumerator(), func);
         assertThat(enumerator2.moveNext(), is(false));
     }
 
     @Test
     public void testCast() {
-        final List<Number> numbers = Arrays.asList((Number) 2, null, 3.14, 5);
+        final List<Number> numbers = Arrays.asList(2, null, 3.14, 5);
         final Enumerator<Integer> enumerator =
                 Linq4j.asEnumerable(numbers)
                         .cast(Integer.class)
@@ -1023,7 +1023,7 @@ public class Linq4jTest {
 
     @Test
     public void testIterableCast() {
-        final List<Number> numbers = Arrays.asList((Number) 2, null, 3.14, 5);
+        final List<Number> numbers = Arrays.asList(2, null, 3.14, 5);
         final Enumerator<Integer> enumerator =
                 Linq4j.cast(numbers, Integer.class)
                         .enumerator();
@@ -1052,7 +1052,7 @@ public class Linq4jTest {
 
     @Test
     public void testOfType() {
-        final List<Number> numbers = Arrays.asList((Number) 2, null, 3.14, 5);
+        final List<Number> numbers = Arrays.asList(2, null, 3.14, 5);
         final Enumerator<Integer> enumerator =
                 Linq4j.asEnumerable(numbers)
                         .ofType(Integer.class)
@@ -1062,7 +1062,7 @@ public class Linq4jTest {
 
     @Test
     public void testIterableOfType() {
-        final List<Number> numbers = Arrays.asList((Number) 2, null, 3.14, 5);
+        final List<Number> numbers = Arrays.asList(2, null, 3.14, 5);
         final Enumerator<Integer> enumerator =
                 Linq4j.ofType(numbers, Integer.class)
                         .enumerator();
@@ -1258,7 +1258,7 @@ public class Linq4jTest {
                                         return v1.name + " works in " + v2.name;
                                     }
                                 })
-                        .orderBy(Functions.<String>identitySelector())
+                        .orderBy(Functions.identitySelector())
                         .toList()
                         .toString();
         assertEquals(
@@ -1288,7 +1288,7 @@ public class Linq4jTest {
                                                 + (v2 == null ? null : v2.name);
                                     }
                                 }, null, false, true)
-                        .orderBy(Functions.<String>identitySelector())
+                        .orderBy(Functions.identitySelector())
                         .toList()
                         .toString();
         assertEquals(
@@ -1319,7 +1319,7 @@ public class Linq4jTest {
                                                 + " works in " + (v2 == null ? null : v2.name);
                                     }
                                 }, null, true, false)
-                        .orderBy(Functions.<String>identitySelector())
+                        .orderBy(Functions.identitySelector())
                         .toList()
                         .toString();
         assertEquals(
@@ -1350,7 +1350,7 @@ public class Linq4jTest {
                                                 + " works in " + (v2 == null ? null : v2.name);
                                     }
                                 }, null, true, true)
-                        .orderBy(Functions.<String>identitySelector())
+                        .orderBy(Functions.identitySelector())
                         .toList()
                         .toString();
         assertEquals(
@@ -1398,13 +1398,13 @@ public class Linq4jTest {
         final Enumerator<List<String>> productFullEmpty =
                 Linq4j.product(
                         Arrays.asList(
-                                abc.enumerator(), Linq4j.<String>emptyEnumerator()));
+                                abc.enumerator(), Linq4j.emptyEnumerator()));
         assertFalse(productFullEmpty.moveNext());
 
         final Enumerator<List<String>> productEmptyFull =
                 Linq4j.product(
                         Arrays.asList(
-                                abc.enumerator(), Linq4j.<String>emptyEnumerator()));
+                                abc.enumerator(), Linq4j.emptyEnumerator()));
         assertFalse(productEmptyFull.moveNext());
 
         final Enumerator<List<String>> productAbcXy =
@@ -1742,7 +1742,7 @@ public class Linq4jTest {
         assertEquals(
                 1,
                 Linq4j.asEnumerable(depts).asQueryable().skipWhileN(
-                        Expressions.<Predicate2<Department, Integer>>lambda(
+                        Expressions.lambda(
                                 new Predicate2<Department, Integer>() {
                                     public boolean apply(Department v1, Integer v2) {
                                         return v1.name.equals("Sales")
@@ -1773,7 +1773,7 @@ public class Linq4jTest {
                 Linq4j.asEnumerable(emps)
                         .orderBy(EMP_NAME_SELECTOR)
                         .orderBy(
-                                EMP_DEPTNO_SELECTOR, Collections.<Integer>reverseOrder())
+                                EMP_DEPTNO_SELECTOR, Collections.reverseOrder())
                         .toList().toString());
     }
 

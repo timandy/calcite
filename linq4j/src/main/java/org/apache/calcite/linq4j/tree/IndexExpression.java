@@ -71,11 +71,7 @@ public class IndexExpression extends Expression {
         if (!array.equals(that.array)) {
             return false;
         }
-        if (!indexExpressions.equals(that.indexExpressions)) {
-            return false;
-        }
-
-        return true;
+        return indexExpressions.equals(that.indexExpressions);
     }
 
     @Override
