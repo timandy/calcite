@@ -23,53 +23,55 @@ import java.lang.reflect.Type;
  * Represents a PseudoField that is implemented via java reflection Field
  */
 public class ReflectedPseudoField implements PseudoField {
-  private final Field field;
+    private final Field field;
 
-  public ReflectedPseudoField(Field field) {
-    assert field != null : "field should not be null";
-    this.field = field;
-  }
-
-  public String getName() {
-    return field.getName();
-  }
-
-  public Type getType() {
-    return field.getType();
-  }
-
-  public int getModifiers() {
-    return field.getModifiers();
-  }
-
-  public Object get(Object o) throws IllegalAccessException {
-    return field.get(o);
-  }
-
-  public Class<?> getDeclaringClass() {
-    return field.getDeclaringClass();
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public ReflectedPseudoField(Field field) {
+        assert field != null : "field should not be null";
+        this.field = field;
     }
 
-    ReflectedPseudoField that = (ReflectedPseudoField) o;
-
-    if (!field.equals(that.field)) {
-      return false;
+    public String getName() {
+        return field.getName();
     }
 
-    return true;
-  }
+    public Type getType() {
+        return field.getType();
+    }
 
-  @Override public int hashCode() {
-    return field.hashCode();
-  }
+    public int getModifiers() {
+        return field.getModifiers();
+    }
+
+    public Object get(Object o) throws IllegalAccessException {
+        return field.get(o);
+    }
+
+    public Class<?> getDeclaringClass() {
+        return field.getDeclaringClass();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ReflectedPseudoField that = (ReflectedPseudoField) o;
+
+        if (!field.equals(that.field)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return field.hashCode();
+    }
 }
 
 // End ReflectedPseudoField.java

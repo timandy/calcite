@@ -22,51 +22,55 @@ import java.util.Objects;
  * Represents a {@code throw} statement.
  */
 public class ThrowStatement extends Statement {
-  public final Expression expression;
+    public final Expression expression;
 
-  public ThrowStatement(Expression expression) {
-    super(ExpressionType.Throw, Void.TYPE);
-    this.expression = expression;
-  }
-
-  @Override public Statement accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    Expression expression = this.expression.accept(shuttle);
-    return shuttle.visit(this, expression);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept0(ExpressionWriter writer) {
-    writer.append("throw ").append(expression).append(';').newlineAndIndent();
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public ThrowStatement(Expression expression) {
+        super(ExpressionType.Throw, Void.TYPE);
+        this.expression = expression;
     }
 
-    ThrowStatement that = (ThrowStatement) o;
-
-    if (expression != null ? !expression.equals(that.expression) : that
-        .expression != null) {
-      return false;
+    @Override
+    public Statement accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        Expression expression = this.expression.accept(shuttle);
+        return shuttle.visit(this, expression);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, expression);
-  }
+    @Override
+    void accept0(ExpressionWriter writer) {
+        writer.append("throw ").append(expression).append(';').newlineAndIndent();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        ThrowStatement that = (ThrowStatement) o;
+
+        if (expression != null ? !expression.equals(that.expression) : that
+                .expression != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, expression);
+    }
 }
 
 // End ThrowStatement.java

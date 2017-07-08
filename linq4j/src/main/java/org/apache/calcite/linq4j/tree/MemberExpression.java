@@ -24,85 +24,89 @@ import java.util.Objects;
  * Represents accessing a field or property.
  */
 public class MemberExpression extends Expression {
-  public final Expression expression;
-  public final PseudoField field;
+    public final Expression expression;
+    public final PseudoField field;
 
-  public MemberExpression(Expression expression, Field field) {
-    this(expression, Types.field(field));
-  }
-
-  public MemberExpression(Expression expression, PseudoField field) {
-    super(ExpressionType.MemberAccess, field.getType());
-    assert field != null : "field should not be null";
-    assert expression != null || Modifier.isStatic(field.getModifiers())
-        : "must specify expression if field is not static";
-    this.expression = expression;
-    this.field = field;
-  }
-
-  @Override public Expression accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    Expression expression1 = expression == null
-        ? null
-        : expression.accept(shuttle);
-    return shuttle.visit(this, expression1);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  public Object evaluate(Evaluator evaluator) {
-    final Object o = expression == null
-        ? null
-        : expression.evaluate(evaluator);
-    try {
-      return field.get(o);
-    } catch (IllegalAccessException e) {
-      throw new RuntimeException("error while evaluating " + this, e);
-    }
-  }
-
-  @Override void accept(ExpressionWriter writer, int lprec, int rprec) {
-    if (writer.requireParentheses(this, lprec, rprec)) {
-      return;
-    }
-    if (expression != null) {
-      expression.accept(writer, lprec, nodeType.lprec);
-    } else {
-      assert (field.getModifiers() & Modifier.STATIC) != 0;
-      writer.append(field.getDeclaringClass());
-    }
-    writer.append('.').append(field.getName());
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public MemberExpression(Expression expression, Field field) {
+        this(expression, Types.field(field));
     }
 
-    MemberExpression that = (MemberExpression) o;
-
-    if (expression != null ? !expression.equals(that.expression) : that
-        .expression != null) {
-      return false;
+    public MemberExpression(Expression expression, PseudoField field) {
+        super(ExpressionType.MemberAccess, field.getType());
+        assert field != null : "field should not be null";
+        assert expression != null || Modifier.isStatic(field.getModifiers())
+                : "must specify expression if field is not static";
+        this.expression = expression;
+        this.field = field;
     }
-    if (!field.equals(that.field)) {
-      return false;
+
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        Expression expression1 = expression == null
+                ? null
+                : expression.accept(shuttle);
+        return shuttle.visit(this, expression1);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, expression, field);
-  }
+    public Object evaluate(Evaluator evaluator) {
+        final Object o = expression == null
+                ? null
+                : expression.evaluate(evaluator);
+        try {
+            return field.get(o);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("error while evaluating " + this, e);
+        }
+    }
+
+    @Override
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        if (writer.requireParentheses(this, lprec, rprec)) {
+            return;
+        }
+        if (expression != null) {
+            expression.accept(writer, lprec, nodeType.lprec);
+        } else {
+            assert (field.getModifiers() & Modifier.STATIC) != 0;
+            writer.append(field.getDeclaringClass());
+        }
+        writer.append('.').append(field.getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        MemberExpression that = (MemberExpression) o;
+
+        if (expression != null ? !expression.equals(that.expression) : that
+                .expression != null) {
+            return false;
+        }
+        if (!field.equals(that.field)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, expression, field);
+    }
 }
 
 // End MemberExpression.java

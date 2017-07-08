@@ -22,39 +22,41 @@ import java.util.Objects;
  * Represents a catch statement in a try block.
  */
 public class CatchBlock {
-  public final ParameterExpression parameter;
-  public final Statement body;
+    public final ParameterExpression parameter;
+    public final Statement body;
 
-  public CatchBlock(ParameterExpression parameter,
-      Statement body) {
-    this.parameter = parameter;
-    this.body = body;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public CatchBlock(ParameterExpression parameter,
+                      Statement body) {
+        this.parameter = parameter;
+        this.body = body;
     }
 
-    CatchBlock that = (CatchBlock) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-    if (body != null ? !body.equals(that.body) : that.body != null) {
-      return false;
+        CatchBlock that = (CatchBlock) o;
+
+        if (body != null ? !body.equals(that.body) : that.body != null) {
+            return false;
+        }
+        if (parameter != null ? !parameter.equals(that.parameter) : that
+                .parameter != null) {
+            return false;
+        }
+
+        return true;
     }
-    if (parameter != null ? !parameter.equals(that.parameter) : that
-        .parameter != null) {
-      return false;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parameter, body);
     }
-
-    return true;
-  }
-
-  @Override public int hashCode() {
-    return Objects.hash(parameter, body);
-  }
 }
 
 // End CatchBlock.java

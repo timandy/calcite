@@ -23,61 +23,63 @@ import org.apache.calcite.linq4j.tree.ExpressionType;
 import org.apache.calcite.linq4j.tree.Expressions;
 import org.apache.calcite.linq4j.tree.OptimizeShuttle;
 import org.apache.calcite.linq4j.tree.Shuttle;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.apache.calcite.linq4j.test.BlockBuilderBase.FOUR;
 import static org.apache.calcite.linq4j.test.BlockBuilderBase.ONE;
 import static org.apache.calcite.linq4j.test.BlockBuilderBase.TWO;
-
 import static org.junit.Assert.assertEquals;
 
 /**
  * Tests BlockBuilder.
  */
 public class BlockBuilderTest {
-  BlockBuilder b;
+    BlockBuilder b;
 
-  @Before
-  public void prepareBuilder() {
-    b = new BlockBuilder(true);
-  }
+    @Before
+    public void prepareBuilder() {
+        b = new BlockBuilder(true);
+    }
 
-  @Test public void testReuseExpressionsFromUpperLevel() {
-    Expression x = b.append("x", Expressions.add(ONE, TWO));
-    BlockBuilder nested = new BlockBuilder(true, b);
-    Expression y = nested.append("y", Expressions.add(ONE, TWO));
-    nested.add(Expressions.return_(null, Expressions.add(y, y)));
-    b.add(nested.toBlock());
-    assertEquals(
-        "{\n"
-            + "  final int x = 1 + 2;\n"
-            + "  {\n"
-            + "    return x + x;\n"
-            + "  }\n"
-            + "}\n",
-        b.toBlock().toString());
-  }
+    @Test
+    public void testReuseExpressionsFromUpperLevel() {
+        Expression x = b.append("x", Expressions.add(ONE, TWO));
+        BlockBuilder nested = new BlockBuilder(true, b);
+        Expression y = nested.append("y", Expressions.add(ONE, TWO));
+        nested.add(Expressions.return_(null, Expressions.add(y, y)));
+        b.add(nested.toBlock());
+        assertEquals(
+                "{\n"
+                        + "  final int x = 1 + 2;\n"
+                        + "  {\n"
+                        + "    return x + x;\n"
+                        + "  }\n"
+                        + "}\n",
+                b.toBlock().toString());
+    }
 
-  @Test public void testTestCustomOptimizer() {
-    BlockBuilder b = new BlockBuilder() {
-      @Override protected Shuttle createOptimizeShuttle() {
-        return new OptimizeShuttle() {
-          @Override public Expression visit(BinaryExpression binary,
-              Expression expression0, Expression expression1) {
-            if (binary.getNodeType() == ExpressionType.Add
-                && ONE.equals(expression0) && TWO.equals(expression1)) {
-              return FOUR;
+    @Test
+    public void testTestCustomOptimizer() {
+        BlockBuilder b = new BlockBuilder() {
+            @Override
+            protected Shuttle createOptimizeShuttle() {
+                return new OptimizeShuttle() {
+                    @Override
+                    public Expression visit(BinaryExpression binary,
+                                            Expression expression0, Expression expression1) {
+                        if (binary.getNodeType() == ExpressionType.Add
+                                && ONE.equals(expression0) && TWO.equals(expression1)) {
+                            return FOUR;
+                        }
+                        return super.visit(binary, expression0, expression1);
+                    }
+                };
             }
-            return super.visit(binary, expression0, expression1);
-          }
         };
-      }
-    };
-    b.add(Expressions.return_(null, Expressions.add(ONE, TWO)));
-    assertEquals("{\n  return 4;\n}\n", b.toBlock().toString());
-  }
+        b.add(Expressions.return_(null, Expressions.add(ONE, TWO)));
+        assertEquals("{\n  return 4;\n}\n", b.toBlock().toString());
+    }
 }
 
 // End BlockBuilderTest.java

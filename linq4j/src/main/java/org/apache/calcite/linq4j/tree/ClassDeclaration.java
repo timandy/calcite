@@ -25,90 +25,92 @@ import java.util.Objects;
  * Declaration of a class.
  */
 public class ClassDeclaration extends MemberDeclaration {
-  public final int modifier;
-  public final String classClass = "class";
-  public final String name;
-  public final List<MemberDeclaration> memberDeclarations;
-  public final Type extended;
-  public final List<Type> implemented;
+    public final int modifier;
+    public final String classClass = "class";
+    public final String name;
+    public final List<MemberDeclaration> memberDeclarations;
+    public final Type extended;
+    public final List<Type> implemented;
 
-  public ClassDeclaration(int modifier, String name, Type extended,
-      List<Type> implemented, List<MemberDeclaration> memberDeclarations) {
-    assert name != null : "name should not be null";
-    this.modifier = modifier;
-    this.name = name;
-    this.memberDeclarations = memberDeclarations;
-    this.extended = extended;
-    this.implemented = implemented;
-  }
-
-  public void accept(ExpressionWriter writer) {
-    String modifiers = Modifier.toString(modifier);
-    writer.append(modifiers);
-    if (!modifiers.isEmpty()) {
-      writer.append(' ');
-    }
-    writer.append(classClass).append(' ').append(name);
-    if (extended != null) {
-      writer.append(" extends ").append(extended);
-    }
-    if (!implemented.isEmpty()) {
-      writer.list(" implements ", ", ", "", implemented);
-    }
-    writer.list(" {\n", "", "}", memberDeclarations);
-    writer.newlineAndIndent();
-  }
-
-  public ClassDeclaration accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    final List<MemberDeclaration> members1 =
-        Expressions.acceptMemberDeclarations(memberDeclarations, shuttle);
-    return shuttle.visit(this, members1);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public ClassDeclaration(int modifier, String name, Type extended,
+                            List<Type> implemented, List<MemberDeclaration> memberDeclarations) {
+        assert name != null : "name should not be null";
+        this.modifier = modifier;
+        this.name = name;
+        this.memberDeclarations = memberDeclarations;
+        this.extended = extended;
+        this.implemented = implemented;
     }
 
-    ClassDeclaration that = (ClassDeclaration) o;
-
-    if (modifier != that.modifier) {
-      return false;
-    }
-    if (!classClass.equals(that.classClass)) {
-      return false;
-    }
-    if (extended != null ? !extended.equals(that.extended) : that.extended
-        != null) {
-      return false;
-    }
-    if (implemented != null ? !implemented.equals(that.implemented) : that
-        .implemented != null) {
-      return false;
-    }
-    if (memberDeclarations != null ? !memberDeclarations.equals(that
-        .memberDeclarations) : that.memberDeclarations != null) {
-      return false;
-    }
-    if (!name.equals(that.name)) {
-      return false;
+    public void accept(ExpressionWriter writer) {
+        String modifiers = Modifier.toString(modifier);
+        writer.append(modifiers);
+        if (!modifiers.isEmpty()) {
+            writer.append(' ');
+        }
+        writer.append(classClass).append(' ').append(name);
+        if (extended != null) {
+            writer.append(" extends ").append(extended);
+        }
+        if (!implemented.isEmpty()) {
+            writer.list(" implements ", ", ", "", implemented);
+        }
+        writer.list(" {\n", "", "}", memberDeclarations);
+        writer.newlineAndIndent();
     }
 
-    return true;
-  }
+    public ClassDeclaration accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        final List<MemberDeclaration> members1 =
+                Expressions.acceptMemberDeclarations(memberDeclarations, shuttle);
+        return shuttle.visit(this, members1);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(modifier, classClass, name, memberDeclarations,
-        extended, implemented);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ClassDeclaration that = (ClassDeclaration) o;
+
+        if (modifier != that.modifier) {
+            return false;
+        }
+        if (!classClass.equals(that.classClass)) {
+            return false;
+        }
+        if (extended != null ? !extended.equals(that.extended) : that.extended
+                != null) {
+            return false;
+        }
+        if (implemented != null ? !implemented.equals(that.implemented) : that
+                .implemented != null) {
+            return false;
+        }
+        if (memberDeclarations != null ? !memberDeclarations.equals(that
+                .memberDeclarations) : that.memberDeclarations != null) {
+            return false;
+        }
+        if (!name.equals(that.name)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(modifier, classClass, name, memberDeclarations,
+                extended, implemented);
+    }
 }
 
 // End ClassDeclaration.java

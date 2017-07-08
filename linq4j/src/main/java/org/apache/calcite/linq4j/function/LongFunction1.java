@@ -22,7 +22,7 @@ package org.apache.calcite.linq4j.function;
  * @param <T0> Type of argument #0
  */
 public interface LongFunction1<T0> extends Function<Long> {
-  long apply(T0 v0);
+    long apply(T0 v0);
 }
 
 // End LongFunction1.java

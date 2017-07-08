@@ -23,81 +23,84 @@ import java.util.Objects;
  * Abstract implementation of {@link Node}.
  */
 public abstract class AbstractNode implements Node {
-  public final ExpressionType nodeType;
-  public final Type type;
+    public final ExpressionType nodeType;
+    public final Type type;
 
-  AbstractNode(ExpressionType nodeType, Type type) {
-    this.type = type;
-    this.nodeType = nodeType;
-  }
-
-  /**
-   * Gets the node type of this Expression.
-   */
-  public ExpressionType getNodeType() {
-    return nodeType;
-  }
-
-  /**
-   * Gets the static type of the expression that this Expression
-   * represents.
-   */
-  public Type getType() {
-    return type;
-  }
-
-  @Override public String toString() {
-    ExpressionWriter writer = new ExpressionWriter(true);
-    accept(writer, 0, 0);
-    return writer.toString();
-  }
-
-  public void accept(ExpressionWriter writer) {
-    accept(writer, 0, 0);
-  }
-
-  void accept0(ExpressionWriter writer) {
-    accept(writer, 0, 0);
-  }
-
-  void accept(ExpressionWriter writer, int lprec, int rprec) {
-    throw new RuntimeException(
-        "un-parse not supported: " + getClass() + ":" + nodeType);
-  }
-
-  public Node accept(Shuttle shuttle) {
-    throw new RuntimeException(
-        "visit not supported: " + getClass() + ":" + nodeType);
-  }
-
-  public Object evaluate(Evaluator evaluator) {
-    throw new RuntimeException(
-        "evaluation not supported: " + getClass() + ":" + nodeType);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    AbstractNode(ExpressionType nodeType, Type type) {
+        this.type = type;
+        this.nodeType = nodeType;
     }
 
-    AbstractNode that = (AbstractNode) o;
-
-    if (nodeType != that.nodeType) {
-      return false;
-    }
-    if (type != null ? !type.equals(that.type) : that.type != null) {
-      return false;
+    /**
+     * Gets the node type of this Expression.
+     */
+    public ExpressionType getNodeType() {
+        return nodeType;
     }
 
-    return true;
-  }
+    /**
+     * Gets the static type of the expression that this Expression
+     * represents.
+     */
+    public Type getType() {
+        return type;
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type);
-  }
+    @Override
+    public String toString() {
+        ExpressionWriter writer = new ExpressionWriter(true);
+        accept(writer, 0, 0);
+        return writer.toString();
+    }
+
+    public void accept(ExpressionWriter writer) {
+        accept(writer, 0, 0);
+    }
+
+    void accept0(ExpressionWriter writer) {
+        accept(writer, 0, 0);
+    }
+
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        throw new RuntimeException(
+                "un-parse not supported: " + getClass() + ":" + nodeType);
+    }
+
+    public Node accept(Shuttle shuttle) {
+        throw new RuntimeException(
+                "visit not supported: " + getClass() + ":" + nodeType);
+    }
+
+    public Object evaluate(Evaluator evaluator) {
+        throw new RuntimeException(
+                "evaluation not supported: " + getClass() + ":" + nodeType);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AbstractNode that = (AbstractNode) o;
+
+        if (nodeType != that.nodeType) {
+            return false;
+        }
+        if (type != null ? !type.equals(that.type) : that.type != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type);
+    }
 }
 
 // End AbstractNode.java

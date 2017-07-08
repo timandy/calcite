@@ -26,45 +26,48 @@ import java.util.Objects;
  * provided.
  */
 public class LabelStatement extends Statement {
-  public final Expression defaultValue;
+    public final Expression defaultValue;
 
-  public LabelStatement(Expression defaultValue, ExpressionType nodeType) {
-    super(nodeType, Void.TYPE);
-    this.defaultValue = defaultValue;
-  }
-
-  @Override public LabelStatement accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public LabelStatement(Expression defaultValue, ExpressionType nodeType) {
+        super(nodeType, Void.TYPE);
+        this.defaultValue = defaultValue;
     }
 
-    LabelStatement that = (LabelStatement) o;
-
-    if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that
-        .defaultValue != null) {
-      return false;
+    @Override
+    public LabelStatement accept(Shuttle shuttle) {
+        return shuttle.visit(this);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, defaultValue);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        LabelStatement that = (LabelStatement) o;
+
+        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that
+                .defaultValue != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, defaultValue);
+    }
 }
 
 // End LabelStatement.java

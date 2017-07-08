@@ -22,29 +22,29 @@ package org.apache.calcite.linq4j.function;
  * @param <T0> Type of argument #0
  */
 public interface Predicate1<T0> extends Function<Boolean> {
-  /**
-   * Predicate that always evaluates to {@code true}.
-   *
-   * @see Functions#truePredicate1()
-   */
-  Predicate1<Object> TRUE = new Predicate1<Object>() {
-    public boolean apply(Object v0) {
-      return true;
-    }
-  };
+    /**
+     * Predicate that always evaluates to {@code true}.
+     *
+     * @see Functions#truePredicate1()
+     */
+    Predicate1<Object> TRUE = new Predicate1<Object>() {
+        public boolean apply(Object v0) {
+            return true;
+        }
+    };
 
-  /**
-   * Predicate that always evaluates to {@code false}.
-   *
-   * @see Functions#falsePredicate1()
-   */
-  Predicate1<Object> FALSE = new Predicate1<Object>() {
-    public boolean apply(Object v0) {
-      return false;
-    }
-  };
+    /**
+     * Predicate that always evaluates to {@code false}.
+     *
+     * @see Functions#falsePredicate1()
+     */
+    Predicate1<Object> FALSE = new Predicate1<Object>() {
+        public boolean apply(Object v0) {
+            return false;
+        }
+    };
 
-  boolean apply(T0 v0);
+    boolean apply(T0 v0);
 }
 
 // End Predicate1.java

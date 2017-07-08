@@ -20,11 +20,11 @@ package org.apache.calcite.linq4j.tree;
  * <p>Parse tree node.</p>
  */
 public interface Node {
-  <R> R accept(Visitor<R> visitor);
+    <R> R accept(Visitor<R> visitor);
 
-  Node accept(Shuttle shuttle);
+    Node accept(Shuttle shuttle);
 
-  void accept(ExpressionWriter expressionWriter);
+    void accept(ExpressionWriter expressionWriter);
 }
 
 // End Node.java

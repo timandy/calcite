@@ -27,95 +27,100 @@ import java.util.Set;
  * can be defined.
  */
 public class BlockStatement extends Statement {
-  public final List<Statement> statements;
-  /**
-   * Cache the hash code for the expression
-   */
-  private int hash;
+    public final List<Statement> statements;
+    /**
+     * Cache the hash code for the expression
+     */
+    private int hash;
 
-  BlockStatement(List<Statement> statements, Type type) {
-    super(ExpressionType.Block, type);
-    assert statements != null : "statements should not be null";
-    this.statements = statements;
-    assert distinctVariables(true);
-  }
+    BlockStatement(List<Statement> statements, Type type) {
+        super(ExpressionType.Block, type);
+        assert statements != null : "statements should not be null";
+        this.statements = statements;
+        assert distinctVariables(true);
+    }
 
-  private boolean distinctVariables(boolean fail) {
-    Set<String> names = new HashSet<>();
-    for (Statement statement : statements) {
-      if (statement instanceof DeclarationStatement) {
-        String name = ((DeclarationStatement) statement).parameter.name;
-        if (!names.add(name)) {
-          assert !fail : "duplicate variable " + name;
-          return false;
+    private boolean distinctVariables(boolean fail) {
+        Set<String> names = new HashSet<>();
+        for (Statement statement : statements) {
+            if (statement instanceof DeclarationStatement) {
+                String name = ((DeclarationStatement) statement).parameter.name;
+                if (!names.add(name)) {
+                    assert !fail : "duplicate variable " + name;
+                    return false;
+                }
+            }
         }
-      }
-    }
-    return true;
-  }
-
-  @Override public BlockStatement accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    List<Statement> newStatements = Expressions.acceptStatements(statements,
-        shuttle);
-    return shuttle.visit(this, newStatements);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept0(ExpressionWriter writer) {
-    if (statements.isEmpty()) {
-      writer.append("{}");
-      return;
-    }
-    writer.begin("{\n");
-    for (Statement node : statements) {
-      node.accept(writer, 0, 0);
-    }
-    writer.end("}\n");
-  }
-
-  @Override public Object evaluate(Evaluator evaluator) {
-    Object o = null;
-    for (Statement statement : statements) {
-      o = statement.evaluate(evaluator);
-    }
-    return o;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+        return true;
     }
 
-    BlockStatement that = (BlockStatement) o;
-
-    if (!statements.equals(that.statements)) {
-      return false;
+    @Override
+    public BlockStatement accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        List<Statement> newStatements = Expressions.acceptStatements(statements,
+                shuttle);
+        return shuttle.visit(this, newStatements);
     }
 
-    return true;
-  }
-
-  @Override public int hashCode() {
-    int result = hash;
-    if (result == 0) {
-      result = Objects.hash(nodeType, type, statements);
-      if (result == 0) {
-        result = 1;
-      }
-      hash = result;
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
     }
-    return result;
-  }
+
+    @Override
+    void accept0(ExpressionWriter writer) {
+        if (statements.isEmpty()) {
+            writer.append("{}");
+            return;
+        }
+        writer.begin("{\n");
+        for (Statement node : statements) {
+            node.accept(writer, 0, 0);
+        }
+        writer.end("}\n");
+    }
+
+    @Override
+    public Object evaluate(Evaluator evaluator) {
+        Object o = null;
+        for (Statement statement : statements) {
+            o = statement.evaluate(evaluator);
+        }
+        return o;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        BlockStatement that = (BlockStatement) o;
+
+        if (!statements.equals(that.statements)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = hash;
+        if (result == 0) {
+            result = Objects.hash(nodeType, type, statements);
+            if (result == 0) {
+                result = 1;
+            }
+            hash = result;
+        }
+        return result;
+    }
 }
 
 // End BlockStatement.java

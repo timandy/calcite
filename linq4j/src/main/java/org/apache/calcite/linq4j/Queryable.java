@@ -19,7 +19,7 @@ package org.apache.calcite.linq4j;
 /**
  * Provides functionality to evaluate queries against a specific data source
  * wherein the type of the data is known.
- *
+ * <p>
  * <p>Analogous to LINQ's System.Linq.IQueryable.</p>
  *
  * @param <T> Element type

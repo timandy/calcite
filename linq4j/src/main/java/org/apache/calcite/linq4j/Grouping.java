@@ -23,10 +23,10 @@ package org.apache.calcite.linq4j;
  * @param <V> Element type
  */
 public interface Grouping<K, V> extends Enumerable<V> {
-  /**
-   * Gets the key of this Grouping.
-   */
-  K getKey();
+    /**
+     * Gets the key of this Grouping.
+     */
+    K getKey();
 }
 
 // End Grouping.java

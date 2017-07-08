@@ -22,7 +22,7 @@ import java.lang.reflect.Type;
 
 /**
  * Core methods that define a {@link Queryable}.
- *
+ * <p>
  * <p>The other methods in {@link Queryable}, defined in
  * {@link ExtendedQueryable}, can easily be implemented by calling the
  * corresponding static methods in {@link Extensions}.
@@ -30,21 +30,21 @@ import java.lang.reflect.Type;
  * @param <T> Element type
  */
 public interface RawQueryable<T> extends Enumerable<T> {
-  /**
-   * Gets the type of the element(s) that are returned when the expression
-   * tree associated with this Queryable is executed.
-   */
-  Type getElementType();
+    /**
+     * Gets the type of the element(s) that are returned when the expression
+     * tree associated with this Queryable is executed.
+     */
+    Type getElementType();
 
-  /**
-   * Gets the expression tree that is associated with this Queryable.
-   */
-  Expression getExpression();
+    /**
+     * Gets the expression tree that is associated with this Queryable.
+     */
+    Expression getExpression();
 
-  /**
-   * Gets the query provider that is associated with this data source.
-   */
-  QueryProvider getProvider();
+    /**
+     * Gets the query provider that is associated with this data source.
+     */
+    QueryProvider getProvider();
 }
 
 // End RawQueryable.java

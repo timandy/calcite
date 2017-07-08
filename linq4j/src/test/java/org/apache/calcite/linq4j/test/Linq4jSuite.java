@@ -18,7 +18,6 @@ package org.apache.calcite.linq4j.test;
 
 import org.apache.calcite.linq4j.function.FunctionTest;
 import org.apache.calcite.linq4j.tree.TypeTest;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -28,16 +27,16 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    PrimitiveTest.class,
-    Linq4jTest.class,
-    ExpressionTest.class,
-    OptimizerTest.class,
-    InlinerTest.class,
-    DeterministicTest.class,
-    BlockBuilderTest.class,
-    FunctionTest.class,
-    TypeTest.class,
-    CorrelateJoinTest.class
+        PrimitiveTest.class,
+        Linq4jTest.class,
+        ExpressionTest.class,
+        OptimizerTest.class,
+        InlinerTest.class,
+        DeterministicTest.class,
+        BlockBuilderTest.class,
+        FunctionTest.class,
+        TypeTest.class,
+        CorrelateJoinTest.class
 })
 public class Linq4jSuite {
 }

@@ -18,22 +18,22 @@ package org.apache.calcite.linq4j;
 
 /**
  * Exposes the enumerator, which supports a simple iteration over a collection.
- *
+ * <p>
  * <p>Analogous to LINQ's System.Collections.IEnumerable (both generic
  * and non-generic variants).</p>
- *
+ * <p>
  * <p>Also implements {@link Iterable}, to enable use in Java foreach loops.</p>
  *
  * @param <T> Element type
  */
 public interface Enumerable<T>
-    extends RawEnumerable<T>, Iterable<T>, ExtendedEnumerable<T> {
-  /**
-   * Converts this Enumerable to a Queryable.
-   *
-   * @see EnumerableDefaults#asQueryable(Enumerable)
-   */
-  Queryable<T> asQueryable();
+        extends RawEnumerable<T>, Iterable<T>, ExtendedEnumerable<T> {
+    /**
+     * Converts this Enumerable to a Queryable.
+     *
+     * @see EnumerableDefaults#asQueryable(Enumerable)
+     */
+    Queryable<T> asQueryable();
 
 }
 

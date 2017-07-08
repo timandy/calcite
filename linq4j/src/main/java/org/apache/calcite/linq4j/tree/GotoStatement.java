@@ -23,114 +23,119 @@ import java.util.Objects;
  * continue statements, and other jumps.
  */
 public class GotoStatement extends Statement {
-  public final GotoExpressionKind kind;
-  public final LabelTarget labelTarget;
-  public final Expression expression;
+    public final GotoExpressionKind kind;
+    public final LabelTarget labelTarget;
+    public final Expression expression;
 
-  GotoStatement(GotoExpressionKind kind, LabelTarget labelTarget,
-      Expression expression) {
-    super(ExpressionType.Goto,
-        expression == null ? Void.TYPE : expression.getType());
-    assert kind != null : "kind should not be null";
-    this.kind = kind;
-    this.labelTarget = labelTarget;
-    this.expression = expression;
+    GotoStatement(GotoExpressionKind kind, LabelTarget labelTarget,
+                  Expression expression) {
+        super(ExpressionType.Goto,
+                expression == null ? Void.TYPE : expression.getType());
+        assert kind != null : "kind should not be null";
+        this.kind = kind;
+        this.labelTarget = labelTarget;
+        this.expression = expression;
 
-    switch (kind) {
-    case Break:
-    case Continue:
-      assert expression == null;
-      break;
-    case Goto:
-      assert expression == null;
-      assert labelTarget != null;
-      break;
-    case Return:
-    case Sequence:
-      assert labelTarget == null;
-      break;
-    default:
-      throw new RuntimeException("unexpected: " + kind);
-    }
-  }
-
-  @Override public Statement accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    Expression expression1 =
-        expression == null ? null : expression.accept(shuttle);
-    return shuttle.visit(this, expression1);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept0(ExpressionWriter writer) {
-    writer.append(kind.prefix);
-    if (labelTarget != null) {
-      writer.append(' ').append(labelTarget.name);
-    }
-    if (expression != null) {
-      if (!kind.prefix.isEmpty()) {
-        writer.append(' ');
-      }
-      switch (kind) {
-      case Sequence:
-        // don't indent for sequence
-        expression.accept(writer, 0, 0);
-        break;
-      default:
-        writer.begin();
-        expression.accept(writer, 0, 0);
-        writer.end();
-      }
-    }
-    writer.append(';').newlineAndIndent();
-  }
-
-  @Override public Object evaluate(Evaluator evaluator) {
-    switch (kind) {
-    case Return:
-    case Sequence:
-      // NOTE: We ignore control flow. This is only correct if "return"
-      // is the last statement in the block.
-      return expression.evaluate(evaluator);
-    default:
-      throw new AssertionError("evaluate not implemented");
-    }
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+        switch (kind) {
+            case Break:
+            case Continue:
+                assert expression == null;
+                break;
+            case Goto:
+                assert expression == null;
+                assert labelTarget != null;
+                break;
+            case Return:
+            case Sequence:
+                assert labelTarget == null;
+                break;
+            default:
+                throw new RuntimeException("unexpected: " + kind);
+        }
     }
 
-    GotoStatement that = (GotoStatement) o;
-
-    if (expression != null ? !expression.equals(that.expression) : that
-        .expression != null) {
-      return false;
-    }
-    if (kind != that.kind) {
-      return false;
-    }
-    if (labelTarget != null ? !labelTarget.equals(that.labelTarget) : that
-        .labelTarget != null) {
-      return false;
+    @Override
+    public Statement accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        Expression expression1 =
+                expression == null ? null : expression.accept(shuttle);
+        return shuttle.visit(this, expression1);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, kind, labelTarget, expression);
-  }
+    @Override
+    void accept0(ExpressionWriter writer) {
+        writer.append(kind.prefix);
+        if (labelTarget != null) {
+            writer.append(' ').append(labelTarget.name);
+        }
+        if (expression != null) {
+            if (!kind.prefix.isEmpty()) {
+                writer.append(' ');
+            }
+            switch (kind) {
+                case Sequence:
+                    // don't indent for sequence
+                    expression.accept(writer, 0, 0);
+                    break;
+                default:
+                    writer.begin();
+                    expression.accept(writer, 0, 0);
+                    writer.end();
+            }
+        }
+        writer.append(';').newlineAndIndent();
+    }
+
+    @Override
+    public Object evaluate(Evaluator evaluator) {
+        switch (kind) {
+            case Return:
+            case Sequence:
+                // NOTE: We ignore control flow. This is only correct if "return"
+                // is the last statement in the block.
+                return expression.evaluate(evaluator);
+            default:
+                throw new AssertionError("evaluate not implemented");
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        GotoStatement that = (GotoStatement) o;
+
+        if (expression != null ? !expression.equals(that.expression) : that
+                .expression != null) {
+            return false;
+        }
+        if (kind != that.kind) {
+            return false;
+        }
+        if (labelTarget != null ? !labelTarget.equals(that.labelTarget) : that
+                .labelTarget != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, kind, labelTarget, expression);
+    }
 }
 
 // End GotoStatement.java

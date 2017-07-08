@@ -24,63 +24,65 @@ import java.util.Objects;
  * Represents a length field of a RecordType
  */
 public class ArrayLengthRecordField implements Types.RecordField {
-  private final String fieldName;
-  private final Class clazz;
+    private final String fieldName;
+    private final Class clazz;
 
-  public ArrayLengthRecordField(String fieldName, Class clazz) {
-    assert fieldName != null : "fieldName should not be null";
-    assert clazz != null : "clazz should not be null";
-    this.fieldName = fieldName;
-    this.clazz = clazz;
-  }
-
-  public boolean nullable() {
-    return false;
-  }
-
-  public String getName() {
-    return fieldName;
-  }
-
-  public Type getType() {
-    return int.class;
-  }
-
-  public int getModifiers() {
-    return 0;
-  }
-
-  public Object get(Object o) throws IllegalAccessException {
-    return Array.getLength(o);
-  }
-
-  public Type getDeclaringClass() {
-    return clazz;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public ArrayLengthRecordField(String fieldName, Class clazz) {
+        assert fieldName != null : "fieldName should not be null";
+        assert clazz != null : "clazz should not be null";
+        this.fieldName = fieldName;
+        this.clazz = clazz;
     }
 
-    ArrayLengthRecordField that = (ArrayLengthRecordField) o;
-
-    if (!clazz.equals(that.clazz)) {
-      return false;
-    }
-    if (!fieldName.equals(that.fieldName)) {
-      return false;
+    public boolean nullable() {
+        return false;
     }
 
-    return true;
-  }
+    public String getName() {
+        return fieldName;
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(fieldName, clazz);
-  }
+    public Type getType() {
+        return int.class;
+    }
+
+    public int getModifiers() {
+        return 0;
+    }
+
+    public Object get(Object o) throws IllegalAccessException {
+        return Array.getLength(o);
+    }
+
+    public Type getDeclaringClass() {
+        return clazz;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ArrayLengthRecordField that = (ArrayLengthRecordField) o;
+
+        if (!clazz.equals(that.clazz)) {
+            return false;
+        }
+        if (!fieldName.equals(that.fieldName)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fieldName, clazz);
+    }
 }
 
 // End ArrayLengthRecordField.java

@@ -21,17 +21,18 @@ package org.apache.calcite.linq4j.tree;
  * new object.
  */
 public class MemberInitExpression extends Expression {
-  public MemberInitExpression() {
-    super(ExpressionType.MemberInit, Void.TYPE);
-  }
+    public MemberInitExpression() {
+        super(ExpressionType.MemberInit, Void.TYPE);
+    }
 
-  @Override public Expression accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
 }
 

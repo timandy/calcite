@@ -23,71 +23,74 @@ import java.util.Objects;
  * Declaration of a field.
  */
 public class FieldDeclaration extends MemberDeclaration {
-  public final int modifier;
-  public final ParameterExpression parameter;
-  public final Expression initializer;
+    public final int modifier;
+    public final ParameterExpression parameter;
+    public final Expression initializer;
 
-  public FieldDeclaration(int modifier, ParameterExpression parameter,
-      Expression initializer) {
-    assert parameter != null : "parameter should not be null";
-    this.modifier = modifier;
-    this.parameter = parameter;
-    this.initializer = initializer;
-  }
-
-  @Override public MemberDeclaration accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    // do not visit parameter - visit may not return a ParameterExpression
-    final Expression initializer =
-        this.initializer == null ? null : this.initializer.accept(shuttle);
-    return shuttle.visit(this, initializer);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  public void accept(ExpressionWriter writer) {
-    String modifiers = Modifier.toString(modifier);
-    writer.append(modifiers);
-    if (!modifiers.isEmpty()) {
-      writer.append(' ');
-    }
-    writer.append(parameter.type).append(' ').append(parameter.name);
-    if (initializer != null) {
-      writer.append(" = ").append(initializer);
-    }
-    writer.append(';');
-    writer.newlineAndIndent();
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public FieldDeclaration(int modifier, ParameterExpression parameter,
+                            Expression initializer) {
+        assert parameter != null : "parameter should not be null";
+        this.modifier = modifier;
+        this.parameter = parameter;
+        this.initializer = initializer;
     }
 
-    FieldDeclaration that = (FieldDeclaration) o;
-
-    if (modifier != that.modifier) {
-      return false;
-    }
-    if (initializer != null ? !initializer.equals(that.initializer) : that
-        .initializer != null) {
-      return false;
-    }
-    if (!parameter.equals(that.parameter)) {
-      return false;
+    @Override
+    public MemberDeclaration accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        // do not visit parameter - visit may not return a ParameterExpression
+        final Expression initializer =
+                this.initializer == null ? null : this.initializer.accept(shuttle);
+        return shuttle.visit(this, initializer);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(modifier, parameter, initializer);
-  }
+    public void accept(ExpressionWriter writer) {
+        String modifiers = Modifier.toString(modifier);
+        writer.append(modifiers);
+        if (!modifiers.isEmpty()) {
+            writer.append(' ');
+        }
+        writer.append(parameter.type).append(' ').append(parameter.name);
+        if (initializer != null) {
+            writer.append(" = ").append(initializer);
+        }
+        writer.append(';');
+        writer.newlineAndIndent();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        FieldDeclaration that = (FieldDeclaration) o;
+
+        if (modifier != that.modifier) {
+            return false;
+        }
+        if (initializer != null ? !initializer.equals(that.initializer) : that
+                .initializer != null) {
+            return false;
+        }
+        if (!parameter.equals(that.parameter)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(modifier, parameter, initializer);
+    }
 }
 
 // End FieldDeclaration.java

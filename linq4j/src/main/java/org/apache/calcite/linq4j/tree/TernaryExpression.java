@@ -23,73 +23,76 @@ import java.util.Objects;
  * Represents an expression that has a ternary operator.
  */
 public class TernaryExpression extends Expression {
-  public final Expression expression0;
-  public final Expression expression1;
-  public final Expression expression2;
+    public final Expression expression0;
+    public final Expression expression1;
+    public final Expression expression2;
 
-  TernaryExpression(ExpressionType nodeType, Type type, Expression expression0,
-      Expression expression1, Expression expression2) {
-    super(nodeType, type);
-    assert expression0 != null : "expression0 should not be null";
-    assert expression1 != null : "expression1 should not be null";
-    assert expression2 != null : "expression2 should not be null";
-    this.expression0 = expression0;
-    this.expression1 = expression1;
-    this.expression2 = expression2;
-  }
-
-  @Override public Expression accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    Expression expression0 = this.expression0.accept(shuttle);
-    Expression expression1 = this.expression1.accept(shuttle);
-    Expression expression2 = this.expression2.accept(shuttle);
-    return shuttle.visit(this, expression0, expression1, expression2);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  void accept(ExpressionWriter writer, int lprec, int rprec) {
-    if (writer.requireParentheses(this, lprec, rprec)) {
-      return;
-    }
-    expression0.accept(writer, lprec, nodeType.lprec);
-    writer.append(nodeType.op);
-    expression1.accept(writer, nodeType.rprec, nodeType.lprec);
-    writer.append(nodeType.op2);
-    expression2.accept(writer, nodeType.rprec, rprec);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    TernaryExpression(ExpressionType nodeType, Type type, Expression expression0,
+                      Expression expression1, Expression expression2) {
+        super(nodeType, type);
+        assert expression0 != null : "expression0 should not be null";
+        assert expression1 != null : "expression1 should not be null";
+        assert expression2 != null : "expression2 should not be null";
+        this.expression0 = expression0;
+        this.expression1 = expression1;
+        this.expression2 = expression2;
     }
 
-    TernaryExpression that = (TernaryExpression) o;
-
-    if (!expression0.equals(that.expression0)) {
-      return false;
-    }
-    if (!expression1.equals(that.expression1)) {
-      return false;
-    }
-    if (!expression2.equals(that.expression2)) {
-      return false;
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        Expression expression0 = this.expression0.accept(shuttle);
+        Expression expression1 = this.expression1.accept(shuttle);
+        Expression expression2 = this.expression2.accept(shuttle);
+        return shuttle.visit(this, expression0, expression1, expression2);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, expression0, expression1, expression2);
-  }
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        if (writer.requireParentheses(this, lprec, rprec)) {
+            return;
+        }
+        expression0.accept(writer, lprec, nodeType.lprec);
+        writer.append(nodeType.op);
+        expression1.accept(writer, nodeType.rprec, nodeType.lprec);
+        writer.append(nodeType.op2);
+        expression2.accept(writer, nodeType.rprec, rprec);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        TernaryExpression that = (TernaryExpression) o;
+
+        if (!expression0.equals(that.expression0)) {
+            return false;
+        }
+        if (!expression1.equals(that.expression1)) {
+            return false;
+        }
+        if (!expression2.equals(that.expression2)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, expression0, expression1, expression2);
+    }
 }
 
 // End TernaryExpression.java

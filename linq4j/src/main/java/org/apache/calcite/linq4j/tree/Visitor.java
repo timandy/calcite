@@ -22,39 +22,71 @@ package org.apache.calcite.linq4j.tree;
  * @param <R> Return type
  */
 public interface Visitor<R> {
-  R visit(BinaryExpression binaryExpression);
-  R visit(BlockStatement blockStatement);
-  R visit(ClassDeclaration classDeclaration);
-  R visit(ConditionalExpression conditionalExpression);
-  R visit(ConditionalStatement conditionalStatement);
-  R visit(ConstantExpression constantExpression);
-  R visit(ConstructorDeclaration constructorDeclaration);
-  R visit(DeclarationStatement declarationStatement);
-  R visit(DefaultExpression defaultExpression);
-  R visit(DynamicExpression dynamicExpression);
-  R visit(FieldDeclaration fieldDeclaration);
-  R visit(ForStatement forStatement);
-  R visit(FunctionExpression functionExpression);
-  R visit(GotoStatement gotoStatement);
-  R visit(IndexExpression indexExpression);
-  R visit(InvocationExpression invocationExpression);
-  R visit(LabelStatement labelStatement);
-  R visit(LambdaExpression lambdaExpression);
-  R visit(ListInitExpression listInitExpression);
-  R visit(MemberExpression memberExpression);
-  R visit(MemberInitExpression memberInitExpression);
-  R visit(MethodCallExpression methodCallExpression);
-  R visit(MethodDeclaration methodDeclaration);
-  R visit(NewArrayExpression newArrayExpression);
-  R visit(NewExpression newExpression);
-  R visit(ParameterExpression parameterExpression);
-  R visit(SwitchStatement switchStatement);
-  R visit(TernaryExpression ternaryExpression);
-  R visit(ThrowStatement throwStatement);
-  R visit(TryStatement tryStatement);
-  R visit(TypeBinaryExpression typeBinaryExpression);
-  R visit(UnaryExpression unaryExpression);
-  R visit(WhileStatement whileStatement);
+    R visit(BinaryExpression binaryExpression);
+
+    R visit(BlockStatement blockStatement);
+
+    R visit(ClassDeclaration classDeclaration);
+
+    R visit(ConditionalExpression conditionalExpression);
+
+    R visit(ConditionalStatement conditionalStatement);
+
+    R visit(ConstantExpression constantExpression);
+
+    R visit(ConstructorDeclaration constructorDeclaration);
+
+    R visit(DeclarationStatement declarationStatement);
+
+    R visit(DefaultExpression defaultExpression);
+
+    R visit(DynamicExpression dynamicExpression);
+
+    R visit(FieldDeclaration fieldDeclaration);
+
+    R visit(ForStatement forStatement);
+
+    R visit(FunctionExpression functionExpression);
+
+    R visit(GotoStatement gotoStatement);
+
+    R visit(IndexExpression indexExpression);
+
+    R visit(InvocationExpression invocationExpression);
+
+    R visit(LabelStatement labelStatement);
+
+    R visit(LambdaExpression lambdaExpression);
+
+    R visit(ListInitExpression listInitExpression);
+
+    R visit(MemberExpression memberExpression);
+
+    R visit(MemberInitExpression memberInitExpression);
+
+    R visit(MethodCallExpression methodCallExpression);
+
+    R visit(MethodDeclaration methodDeclaration);
+
+    R visit(NewArrayExpression newArrayExpression);
+
+    R visit(NewExpression newExpression);
+
+    R visit(ParameterExpression parameterExpression);
+
+    R visit(SwitchStatement switchStatement);
+
+    R visit(TernaryExpression ternaryExpression);
+
+    R visit(ThrowStatement throwStatement);
+
+    R visit(TryStatement tryStatement);
+
+    R visit(TypeBinaryExpression typeBinaryExpression);
+
+    R visit(UnaryExpression unaryExpression);
+
+    R visit(WhileStatement whileStatement);
 }
 
 // End Visitor.java

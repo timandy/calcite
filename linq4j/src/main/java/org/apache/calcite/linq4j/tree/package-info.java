@@ -17,7 +17,7 @@
 
 /**
  * Object model for Java expressions.
- *
+ * <p>
  * <p>This object model is used when the linq4j system is analyzing
  * queries that have been submitted using methods on the
  * {@link org.apache.calcite.linq4j.Queryable} interface. The system attempts

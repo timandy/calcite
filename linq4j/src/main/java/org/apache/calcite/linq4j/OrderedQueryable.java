@@ -22,7 +22,7 @@ package org.apache.calcite.linq4j;
  * @param <T> Element type
  */
 public interface OrderedQueryable<T>
-    extends Queryable<T>, ExtendedOrderedQueryable<T> {
+        extends Queryable<T>, ExtendedOrderedQueryable<T> {
 }
 
 // End OrderedQueryable.java

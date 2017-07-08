@@ -25,69 +25,73 @@ import java.util.Objects;
  * Represents a {@code try ... catch ... finally} block.
  */
 public class TryStatement extends Statement {
-  public final Statement body;
-  public final List<CatchBlock> catchBlocks;
-  public final Statement fynally;
+    public final Statement body;
+    public final List<CatchBlock> catchBlocks;
+    public final Statement fynally;
 
-  public TryStatement(Statement body, List<CatchBlock> catchBlocks,
-      Statement fynally) {
-    super(ExpressionType.Try, body.getType());
-    this.body = Preconditions.checkNotNull(body);
-    this.catchBlocks = Preconditions.checkNotNull(catchBlocks);
-    this.fynally = fynally;
-  }
-
-  @Override public Statement accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept0(ExpressionWriter writer) {
-    writer.append("try ").append(Blocks.toBlock(body));
-    for (CatchBlock catchBlock : catchBlocks) {
-      writer.backUp();
-      writer.append(" catch (").append(catchBlock.parameter.declString())
-          .append(") ").append(Blocks.toBlock(catchBlock.body));
-    }
-    if (fynally != null) {
-      writer.backUp();
-      writer.append(" finally ").append(Blocks.toBlock(fynally));
-    }
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public TryStatement(Statement body, List<CatchBlock> catchBlocks,
+                        Statement fynally) {
+        super(ExpressionType.Try, body.getType());
+        this.body = Preconditions.checkNotNull(body);
+        this.catchBlocks = Preconditions.checkNotNull(catchBlocks);
+        this.fynally = fynally;
     }
 
-    TryStatement that = (TryStatement) o;
-
-    if (!body.equals(that.body)) {
-      return false;
-    }
-    if (!catchBlocks.equals(that.catchBlocks)) {
-      return false;
-    }
-    if (fynally != null ? !fynally.equals(that.fynally) : that.fynally
-        != null) {
-      return false;
+    @Override
+    public Statement accept(Shuttle shuttle) {
+        return shuttle.visit(this);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, body, catchBlocks, fynally);
-  }
+    @Override
+    void accept0(ExpressionWriter writer) {
+        writer.append("try ").append(Blocks.toBlock(body));
+        for (CatchBlock catchBlock : catchBlocks) {
+            writer.backUp();
+            writer.append(" catch (").append(catchBlock.parameter.declString())
+                    .append(") ").append(Blocks.toBlock(catchBlock.body));
+        }
+        if (fynally != null) {
+            writer.backUp();
+            writer.append(" finally ").append(Blocks.toBlock(fynally));
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        TryStatement that = (TryStatement) o;
+
+        if (!body.equals(that.body)) {
+            return false;
+        }
+        if (!catchBlocks.equals(that.catchBlocks)) {
+            return false;
+        }
+        if (fynally != null ? !fynally.equals(that.fynally) : that.fynally
+                != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, body, catchBlocks, fynally);
+    }
 }
 
 // End TryStatement.java

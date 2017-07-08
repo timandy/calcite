@@ -20,29 +20,32 @@ package org.apache.calcite.linq4j.tree;
  * Represents a constant null of unknown type
  * Java allows type inference for such nulls, thus "null" cannot always be
  * replaced to (Object)null and vise versa.
- *
+ * <p>
  * <p>{@code ConstantExpression(null, Object.class)} is not equal to
  * {@code ConstantUntypedNull} However, optimizers might treat all the nulls
  * equal (e.g. in case of comparison).
  */
 public class ConstantUntypedNull extends ConstantExpression {
-  public static final ConstantExpression INSTANCE = new ConstantUntypedNull();
+    public static final ConstantExpression INSTANCE = new ConstantUntypedNull();
 
-  private ConstantUntypedNull() {
-    super(Object.class, null);
-  }
+    private ConstantUntypedNull() {
+        super(Object.class, null);
+    }
 
-  @Override void accept(ExpressionWriter writer, int lprec, int rprec) {
-    writer.append("null");
-  }
+    @Override
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        writer.append("null");
+    }
 
-  @Override public boolean equals(Object o) {
-    return o == INSTANCE;
-  }
+    @Override
+    public boolean equals(Object o) {
+        return o == INSTANCE;
+    }
 
-  @Override public int hashCode() {
-    return ConstantUntypedNull.class.hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return ConstantUntypedNull.class.hashCode();
+    }
 }
 
 // End ConstantUntypedNull.java

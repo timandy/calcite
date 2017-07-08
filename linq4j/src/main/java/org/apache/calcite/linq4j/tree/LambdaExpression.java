@@ -21,17 +21,18 @@ package org.apache.calcite.linq4j.tree;
  * to a Java method body.
  */
 public class LambdaExpression extends Expression {
-  public LambdaExpression(ExpressionType nodeType, Class type) {
-    super(nodeType, type);
-  }
+    public LambdaExpression(ExpressionType nodeType, Class type) {
+        super(nodeType, type);
+    }
 
-  @Override public Expression accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
 }
 

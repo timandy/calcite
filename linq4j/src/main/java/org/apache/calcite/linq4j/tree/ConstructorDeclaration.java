@@ -28,97 +28,100 @@ import java.util.Objects;
  * Declaration of a constructor.
  */
 public class ConstructorDeclaration extends MemberDeclaration {
-  public final int modifier;
-  public final Type resultType;
-  public final List<ParameterExpression> parameters;
-  public final BlockStatement body;
-  /**
-   * Cache the hash code for the expression
-   */
-  private int hash;
+    public final int modifier;
+    public final Type resultType;
+    public final List<ParameterExpression> parameters;
+    public final BlockStatement body;
+    /**
+     * Cache the hash code for the expression
+     */
+    private int hash;
 
-  public ConstructorDeclaration(int modifier, Type declaredAgainst,
-      List<ParameterExpression> parameters, BlockStatement body) {
-    assert parameters != null : "parameters should not be null";
-    assert body != null : "body should not be null";
-    assert declaredAgainst != null : "declaredAgainst should not be null";
-    this.modifier = modifier;
-    this.resultType = declaredAgainst;
-    this.parameters = parameters;
-    this.body = body;
-  }
-
-  @Override public MemberDeclaration accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    // do not visit parameters
-    final BlockStatement body = this.body.accept(shuttle);
-    return shuttle.visit(this, body);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  public void accept(ExpressionWriter writer) {
-    String modifiers = Modifier.toString(modifier);
-    writer.append(modifiers);
-    if (!modifiers.isEmpty()) {
-      writer.append(' ');
-    }
-    writer
-        .append(resultType)
-        .list("(", ", ", ")",
-            Lists.transform(parameters,
-                new Function<ParameterExpression, String>() {
-                  public String apply(ParameterExpression parameter) {
-                    final String modifiers =
-                        Modifier.toString(parameter.modifier);
-                    return modifiers + (modifiers.isEmpty() ? "" : " ")
-                        + Types.className(parameter.getType()) + " "
-                        + parameter.name;
-                  }
-                }))
-        .append(' ').append(body);
-    writer.newlineAndIndent();
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public ConstructorDeclaration(int modifier, Type declaredAgainst,
+                                  List<ParameterExpression> parameters, BlockStatement body) {
+        assert parameters != null : "parameters should not be null";
+        assert body != null : "body should not be null";
+        assert declaredAgainst != null : "declaredAgainst should not be null";
+        this.modifier = modifier;
+        this.resultType = declaredAgainst;
+        this.parameters = parameters;
+        this.body = body;
     }
 
-    ConstructorDeclaration that = (ConstructorDeclaration) o;
-
-    if (modifier != that.modifier) {
-      return false;
-    }
-    if (!body.equals(that.body)) {
-      return false;
-    }
-    if (!parameters.equals(that.parameters)) {
-      return false;
-    }
-    if (!resultType.equals(that.resultType)) {
-      return false;
+    @Override
+    public MemberDeclaration accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        // do not visit parameters
+        final BlockStatement body = this.body.accept(shuttle);
+        return shuttle.visit(this, body);
     }
 
-    return true;
-  }
-
-  @Override public int hashCode() {
-    int result = hash;
-    if (result == 0) {
-      result = Objects.hash(modifier, resultType, parameters, body);
-      if (result == 0) {
-        result = 1;
-      }
-      hash = result;
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
     }
-    return result;
-  }
+
+    public void accept(ExpressionWriter writer) {
+        String modifiers = Modifier.toString(modifier);
+        writer.append(modifiers);
+        if (!modifiers.isEmpty()) {
+            writer.append(' ');
+        }
+        writer
+                .append(resultType)
+                .list("(", ", ", ")",
+                        Lists.transform(parameters,
+                                new Function<ParameterExpression, String>() {
+                                    public String apply(ParameterExpression parameter) {
+                                        final String modifiers =
+                                                Modifier.toString(parameter.modifier);
+                                        return modifiers + (modifiers.isEmpty() ? "" : " ")
+                                                + Types.className(parameter.getType()) + " "
+                                                + parameter.name;
+                                    }
+                                }))
+                .append(' ').append(body);
+        writer.newlineAndIndent();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ConstructorDeclaration that = (ConstructorDeclaration) o;
+
+        if (modifier != that.modifier) {
+            return false;
+        }
+        if (!body.equals(that.body)) {
+            return false;
+        }
+        if (!parameters.equals(that.parameters)) {
+            return false;
+        }
+        if (!resultType.equals(that.resultType)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = hash;
+        if (result == 0) {
+            result = Objects.hash(modifier, resultType, parameters, body);
+            if (result == 0) {
+                result = 1;
+            }
+            hash = result;
+        }
+        return result;
+    }
 }
 
 // End ConstructorDeclaration.java

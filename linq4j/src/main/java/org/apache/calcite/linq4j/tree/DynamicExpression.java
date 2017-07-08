@@ -20,17 +20,18 @@ package org.apache.calcite.linq4j.tree;
  * Represents a dynamic operation.
  */
 public class DynamicExpression extends Expression {
-  public DynamicExpression(Class type) {
-    super(ExpressionType.Dynamic, type);
-  }
+    public DynamicExpression(Class type) {
+        super(ExpressionType.Dynamic, type);
+    }
 
-  @Override public Expression accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
 }
 

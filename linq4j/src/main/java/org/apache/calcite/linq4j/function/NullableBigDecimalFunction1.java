@@ -25,7 +25,7 @@ import java.math.BigDecimal;
  * @param <T0> Type of argument #0
  */
 public interface NullableBigDecimalFunction1<T0>
-    extends Function1<T0, BigDecimal> {
+        extends Function1<T0, BigDecimal> {
 }
 
 // End NullableBigDecimalFunction1.java

@@ -23,62 +23,65 @@ import java.util.Objects;
  * Represents an operation between an expression and a type.
  */
 public class TypeBinaryExpression extends Expression {
-  public final Expression expression;
-  public final Type type;
+    public final Expression expression;
+    public final Type type;
 
-  public TypeBinaryExpression(ExpressionType nodeType, Expression expression,
-      Type type) {
-    super(nodeType, Boolean.TYPE);
-    assert expression != null : "expression should not be null";
-    this.expression = expression;
-    this.type = type;
-  }
-
-  @Override public Expression accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    Expression expression = this.expression.accept(shuttle);
-    return shuttle.visit(this, expression);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  void accept(ExpressionWriter writer, int lprec, int rprec) {
-    if (writer.requireParentheses(this, lprec, rprec)) {
-      return;
-    }
-    expression.accept(writer, lprec, nodeType.lprec);
-    writer.append(nodeType.op);
-    writer.append(type);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public TypeBinaryExpression(ExpressionType nodeType, Expression expression,
+                                Type type) {
+        super(nodeType, Boolean.TYPE);
+        assert expression != null : "expression should not be null";
+        this.expression = expression;
+        this.type = type;
     }
 
-    TypeBinaryExpression that = (TypeBinaryExpression) o;
-
-    if (!expression.equals(that.expression)) {
-      return false;
-    }
-    if (type != null ? !type.equals(that.type) : that.type != null) {
-      return false;
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        Expression expression = this.expression.accept(shuttle);
+        return shuttle.visit(this, expression);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, super.type, type, expression);
-  }
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        if (writer.requireParentheses(this, lprec, rprec)) {
+            return;
+        }
+        expression.accept(writer, lprec, nodeType.lprec);
+        writer.append(nodeType.op);
+        writer.append(type);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        TypeBinaryExpression that = (TypeBinaryExpression) o;
+
+        if (!expression.equals(that.expression)) {
+            return false;
+        }
+        if (type != null ? !type.equals(that.type) : that.type != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, super.type, type, expression);
+    }
 }
 
 // End TypeBinaryExpression.java

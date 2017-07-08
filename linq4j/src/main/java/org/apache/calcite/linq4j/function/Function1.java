@@ -19,22 +19,22 @@ package org.apache.calcite.linq4j.function;
 /**
  * Function with one parameter.
  *
- * @param <R> Result type
+ * @param <R>  Result type
  * @param <T0> Type of parameter 0
  */
 public interface Function1<T0, R> extends Function<R> {
-  /**
-   * The identity function.
-   *
-   * @see Functions#identitySelector()
-   */
-  Function1<Object, Object> IDENTITY = new Function1<Object, Object>() {
-    public Object apply(Object v0) {
-      return v0;
-    }
-  };
+    /**
+     * The identity function.
+     *
+     * @see Functions#identitySelector()
+     */
+    Function1<Object, Object> IDENTITY = new Function1<Object, Object>() {
+        public Object apply(Object v0) {
+            return v0;
+        }
+    };
 
-  R apply(T0 a0);
+    R apply(T0 a0);
 }
 
 // End Function1.java

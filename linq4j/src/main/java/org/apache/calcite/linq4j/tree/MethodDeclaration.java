@@ -28,90 +28,93 @@ import java.util.Objects;
  * Declaration of a method.
  */
 public class MethodDeclaration extends MemberDeclaration {
-  public final int modifier;
-  public final String name;
-  public final Type resultType;
-  public final List<ParameterExpression> parameters;
-  public final BlockStatement body;
+    public final int modifier;
+    public final String name;
+    public final Type resultType;
+    public final List<ParameterExpression> parameters;
+    public final BlockStatement body;
 
-  public MethodDeclaration(int modifier, String name, Type resultType,
-      List<ParameterExpression> parameters, BlockStatement body) {
-    assert name != null : "name should not be null";
-    assert resultType != null : "resultType should not be null";
-    assert parameters != null : "parameters should not be null";
-    assert body != null : "body should not be null";
-    this.modifier = modifier;
-    this.name = name;
-    this.resultType = resultType;
-    this.parameters = parameters;
-    this.body = body;
-  }
-
-  @Override public MemberDeclaration accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    // do not visit parameters
-    final BlockStatement body = this.body.accept(shuttle);
-    return shuttle.visit(this, body);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  public void accept(ExpressionWriter writer) {
-    String modifiers = Modifier.toString(modifier);
-    writer.append(modifiers);
-    if (!modifiers.isEmpty()) {
-      writer.append(' ');
-    }
-    writer
-        .append(resultType)
-        .append(' ')
-        .append(name)
-        .list("(", ", ", ")",
-            Lists.transform(parameters,
-                new Function<ParameterExpression, String>() {
-                  public String apply(ParameterExpression a0) {
-                    return a0.declString();
-                  }
-                }))
-        .append(' ')
-        .append(body);
-    writer.newlineAndIndent();
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public MethodDeclaration(int modifier, String name, Type resultType,
+                             List<ParameterExpression> parameters, BlockStatement body) {
+        assert name != null : "name should not be null";
+        assert resultType != null : "resultType should not be null";
+        assert parameters != null : "parameters should not be null";
+        assert body != null : "body should not be null";
+        this.modifier = modifier;
+        this.name = name;
+        this.resultType = resultType;
+        this.parameters = parameters;
+        this.body = body;
     }
 
-    MethodDeclaration that = (MethodDeclaration) o;
-
-    if (modifier != that.modifier) {
-      return false;
-    }
-    if (!body.equals(that.body)) {
-      return false;
-    }
-    if (!name.equals(that.name)) {
-      return false;
-    }
-    if (!parameters.equals(that.parameters)) {
-      return false;
-    }
-    if (!resultType.equals(that.resultType)) {
-      return false;
+    @Override
+    public MemberDeclaration accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        // do not visit parameters
+        final BlockStatement body = this.body.accept(shuttle);
+        return shuttle.visit(this, body);
     }
 
-    return true;
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(modifier, name, resultType, parameters, body);
-  }
+    public void accept(ExpressionWriter writer) {
+        String modifiers = Modifier.toString(modifier);
+        writer.append(modifiers);
+        if (!modifiers.isEmpty()) {
+            writer.append(' ');
+        }
+        writer
+                .append(resultType)
+                .append(' ')
+                .append(name)
+                .list("(", ", ", ")",
+                        Lists.transform(parameters,
+                                new Function<ParameterExpression, String>() {
+                                    public String apply(ParameterExpression a0) {
+                                        return a0.declString();
+                                    }
+                                }))
+                .append(' ')
+                .append(body);
+        writer.newlineAndIndent();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MethodDeclaration that = (MethodDeclaration) o;
+
+        if (modifier != that.modifier) {
+            return false;
+        }
+        if (!body.equals(that.body)) {
+            return false;
+        }
+        if (!name.equals(that.name)) {
+            return false;
+        }
+        if (!parameters.equals(that.parameters)) {
+            return false;
+        }
+        if (!resultType.equals(that.resultType)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(modifier, name, resultType, parameters, body);
+    }
 }
 
 // End MethodDeclaration.java

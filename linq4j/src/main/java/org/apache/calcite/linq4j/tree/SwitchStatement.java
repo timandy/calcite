@@ -21,17 +21,18 @@ package org.apache.calcite.linq4j.tree;
  * control to {@link SwitchCase}.
  */
 public class SwitchStatement extends Statement {
-  public SwitchStatement(ExpressionType nodeType) {
-    super(nodeType, Void.TYPE);
-  }
+    public SwitchStatement(ExpressionType nodeType) {
+        super(nodeType, Void.TYPE);
+    }
 
-  @Override public Statement accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Statement accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
 }
 

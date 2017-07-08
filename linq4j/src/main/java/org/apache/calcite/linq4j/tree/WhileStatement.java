@@ -22,59 +22,63 @@ import java.util.Objects;
  * Represents a "while" statement.
  */
 public class WhileStatement extends Statement {
-  public final Expression condition;
-  public final Statement body;
+    public final Expression condition;
+    public final Statement body;
 
-  public WhileStatement(Expression condition, Statement body) {
-    super(ExpressionType.While, Void.TYPE);
-    assert condition != null : "condition should not be null";
-    assert body != null : "body should not be null";
-    this.condition = condition;
-    this.body = body;
-  }
-
-  @Override public Statement accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    final Expression condition1 = condition.accept(shuttle);
-    final Statement body1 = body.accept(shuttle);
-    return shuttle.visit(this, condition1, body1);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept0(ExpressionWriter writer) {
-    writer.append("while (").append(condition).append(") ").append(
-        Blocks.toBlock(body));
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public WhileStatement(Expression condition, Statement body) {
+        super(ExpressionType.While, Void.TYPE);
+        assert condition != null : "condition should not be null";
+        assert body != null : "body should not be null";
+        this.condition = condition;
+        this.body = body;
     }
 
-    WhileStatement that = (WhileStatement) o;
-
-    if (!body.equals(that.body)) {
-      return false;
+    @Override
+    public Statement accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        final Expression condition1 = condition.accept(shuttle);
+        final Statement body1 = body.accept(shuttle);
+        return shuttle.visit(this, condition1, body1);
     }
-    if (!condition.equals(that.condition)) {
-      return false;
+
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
     }
 
-    return true;
-  }
+    @Override
+    void accept0(ExpressionWriter writer) {
+        writer.append("while (").append(condition).append(") ").append(
+                Blocks.toBlock(body));
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, condition, body);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        WhileStatement that = (WhileStatement) o;
+
+        if (!body.equals(that.body)) {
+            return false;
+        }
+        if (!condition.equals(that.condition)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, condition, body);
+    }
 }
 
 // End WhileStatement.java

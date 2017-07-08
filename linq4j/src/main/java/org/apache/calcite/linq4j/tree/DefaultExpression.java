@@ -20,17 +20,18 @@ package org.apache.calcite.linq4j.tree;
  * Represents the default value of a type or an empty expression.
  */
 public class DefaultExpression extends Expression {
-  public DefaultExpression(Class type) {
-    super(ExpressionType.Default, type);
-  }
+    public DefaultExpression(Class type) {
+        super(ExpressionType.Default, type);
+    }
 
-  @Override public Expression accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
 }
 

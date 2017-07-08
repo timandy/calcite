@@ -22,32 +22,34 @@ import java.util.Objects;
  * Used to represent the target of a {@link GotoStatement}.
  */
 public class LabelTarget {
-  public final String name;
+    public final String name;
 
-  public LabelTarget(String name) {
-    this.name = name;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    public LabelTarget(String name) {
+        this.name = name;
     }
 
-    LabelTarget that = (LabelTarget) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-    if (name != null ? !name.equals(that.name) : that.name != null) {
-      return false;
+        LabelTarget that = (LabelTarget) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) {
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
-  }
-
-  @Override public int hashCode() {
-    return Objects.hashCode(name);
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
 }
 
 // End LabelTarget.java

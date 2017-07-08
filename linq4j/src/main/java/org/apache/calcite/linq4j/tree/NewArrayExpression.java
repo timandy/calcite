@@ -25,88 +25,92 @@ import java.util.Objects;
  * new array.
  */
 public class NewArrayExpression extends Expression {
-  public final int dimension;
-  public final Expression bound;
-  public final List<Expression> expressions;
-  /**
-   * Cache the hash code for the expression
-   */
-  private int hash;
+    public final int dimension;
+    public final Expression bound;
+    public final List<Expression> expressions;
+    /**
+     * Cache the hash code for the expression
+     */
+    private int hash;
 
-  public NewArrayExpression(Type type, int dimension, Expression bound,
-      List<Expression> expressions) {
-    super(ExpressionType.NewArrayInit, Types.arrayType(type, dimension));
-    this.dimension = dimension;
-    this.bound = bound;
-    this.expressions = expressions;
-  }
-
-  @Override public Expression accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    List<Expression> expressions =
-        this.expressions == null
-            ? null
-            : Expressions.acceptExpressions(this.expressions, shuttle);
-    Expression bound = Expressions.accept(this.bound, shuttle);
-    return shuttle.visit(this, dimension, bound, expressions);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept(ExpressionWriter writer, int lprec, int rprec) {
-    writer.append("new ").append(Types.getComponentTypeN(type));
-    for (int i = 0; i < dimension; i++) {
-      if (i == 0 && bound != null) {
-        writer.append('[').append(bound).append(']');
-      } else {
-        writer.append("[]");
-      }
-    }
-    if (expressions != null) {
-      writer.list(" {\n", ",\n", "}", expressions);
-    }
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public NewArrayExpression(Type type, int dimension, Expression bound,
+                              List<Expression> expressions) {
+        super(ExpressionType.NewArrayInit, Types.arrayType(type, dimension));
+        this.dimension = dimension;
+        this.bound = bound;
+        this.expressions = expressions;
     }
 
-    NewArrayExpression that = (NewArrayExpression) o;
-
-    if (dimension != that.dimension) {
-      return false;
-    }
-    if (bound != null ? !bound.equals(that.bound) : that.bound != null) {
-      return false;
-    }
-    if (expressions != null ? !expressions.equals(that.expressions) : that
-        .expressions != null) {
-      return false;
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        List<Expression> expressions =
+                this.expressions == null
+                        ? null
+                        : Expressions.acceptExpressions(this.expressions, shuttle);
+        Expression bound = Expressions.accept(this.bound, shuttle);
+        return shuttle.visit(this, dimension, bound, expressions);
     }
 
-    return true;
-  }
-
-  @Override public int hashCode() {
-    int result = hash;
-    if (result == 0) {
-      result = Objects.hash(nodeType, type, dimension, bound, expressions);
-      if (result == 0) {
-        result = 1;
-      }
-      hash = result;
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
     }
-    return result;
-  }
+
+    @Override
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        writer.append("new ").append(Types.getComponentTypeN(type));
+        for (int i = 0; i < dimension; i++) {
+            if (i == 0 && bound != null) {
+                writer.append('[').append(bound).append(']');
+            } else {
+                writer.append("[]");
+            }
+        }
+        if (expressions != null) {
+            writer.list(" {\n", ",\n", "}", expressions);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        NewArrayExpression that = (NewArrayExpression) o;
+
+        if (dimension != that.dimension) {
+            return false;
+        }
+        if (bound != null ? !bound.equals(that.bound) : that.bound != null) {
+            return false;
+        }
+        if (expressions != null ? !expressions.equals(that.expressions) : that
+                .expressions != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = hash;
+        if (result == 0) {
+            result = Objects.hash(nodeType, type, dimension, bound, expressions);
+            if (result == 0) {
+                result = 1;
+            }
+            hash = result;
+        }
+        return result;
+    }
 }
 
 // End NewArrayExpression.java

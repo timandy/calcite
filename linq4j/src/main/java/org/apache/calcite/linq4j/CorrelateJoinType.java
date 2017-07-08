@@ -20,31 +20,31 @@ package org.apache.calcite.linq4j;
  * Specifies the type of correlation operation: inner, left, semi, or anti.
  */
 public enum CorrelateJoinType {
-  /**
-   * Inner join
-   */
-  INNER,
+    /**
+     * Inner join
+     */
+    INNER,
 
-  /**
-   * Left-outer join
-   */
-  LEFT,
+    /**
+     * Left-outer join
+     */
+    LEFT,
 
-  /**
-   * Semi-join.
-   *
-   * <p>Similar to {@code from A ... where a in (select b from B ...)}</p>
-   */
-  SEMI,
+    /**
+     * Semi-join.
+     * <p>
+     * <p>Similar to {@code from A ... where a in (select b from B ...)}</p>
+     */
+    SEMI,
 
-  /**
-   * Anti-join.
-   *
-   * <p>Similar to {@code from A ... where a NOT in (select b from B ...)}
-   *
-   * <p>Note: if B.b is nullable and B has nulls, no rows must be returned.
-   */
-  ANTI;
+    /**
+     * Anti-join.
+     * <p>
+     * <p>Similar to {@code from A ... where a NOT in (select b from B ...)}
+     * <p>
+     * <p>Note: if B.b is nullable and B has nulls, no rows must be returned.
+     */
+    ANTI;
 }
 
 // End CorrelateJoinType.java

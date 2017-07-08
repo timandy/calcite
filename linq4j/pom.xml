@@ -15,42 +15,42 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.apache.calcite</groupId>
-    <artifactId>calcite</artifactId>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.calcite</groupId>
+        <artifactId>calcite</artifactId>
+        <version>1.14.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>calcite-linq4j</artifactId>
+    <packaging>jar</packaging>
     <version>1.14.0-SNAPSHOT</version>
-  </parent>
+    <name>Calcite Linq4j</name>
+    <description>Calcite APIs for LINQ (Language-Integrated Query) in Java</description>
 
-  <artifactId>calcite-linq4j</artifactId>
-  <packaging>jar</packaging>
-  <version>1.14.0-SNAPSHOT</version>
-  <name>Calcite Linq4j</name>
-  <description>Calcite APIs for LINQ (Language-Integrated Query) in Java</description>
+    <properties>
+        <top.dir>${project.basedir}/..</top.dir>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+    </properties>
 
-  <properties>
-    <top.dir>${project.basedir}/..</top.dir>
-    <build.timestamp>${maven.build.timestamp}</build.timestamp>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>19.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

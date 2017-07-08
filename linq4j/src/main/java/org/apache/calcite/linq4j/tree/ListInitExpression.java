@@ -20,17 +20,18 @@ package org.apache.calcite.linq4j.tree;
  * Represents a constructor call that has a collection initializer.
  */
 public class ListInitExpression extends Expression {
-  public ListInitExpression(ExpressionType nodeType, Class type) {
-    super(nodeType, type);
-  }
+    public ListInitExpression(ExpressionType nodeType, Class type) {
+        super(nodeType, type);
+    }
 
-  @Override public Expression accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
 }
 

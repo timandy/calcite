@@ -22,13 +22,13 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * This is a dummy annotation that forces javac to produce output for
  * otherwise empty package-info.java.
- *
+ * <p>
  * <p>The result is maven-compiler-plugin can properly identify the scope of
  * changed files
- *
+ * <p>
  * <p>See more details in
  * <a href="https://jira.codehaus.org/browse/MCOMPILER-205">
- *   maven-compiler-plugin: incremental compilation broken</a>
+ * maven-compiler-plugin: incremental compilation broken</a>
  */
 @Retention(RetentionPolicy.SOURCE)
 public @interface PackageMarker {

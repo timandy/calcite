@@ -21,7 +21,7 @@ import java.util.Iterator;
 /**
  * Abstract implementation of the {@link Enumerable} interface that
  * implements the extension methods.
- *
+ * <p>
  * <p>It is helpful to derive from this class if you are implementing
  * {@code Enumerable}, because {@code Enumerable} has so many extension methods,
  * but it is not required.</p>
@@ -29,9 +29,9 @@ import java.util.Iterator;
  * @param <T> Element type
  */
 public abstract class AbstractEnumerable<T> extends DefaultEnumerable<T> {
-  public Iterator<T> iterator() {
-    return Linq4j.enumeratorIterator(enumerator());
-  }
+    public Iterator<T> iterator() {
+        return Linq4j.enumeratorIterator(enumerator());
+    }
 }
 
 // End AbstractEnumerable.java

@@ -22,19 +22,21 @@ import java.lang.reflect.Type;
  * <p>Statement.</p>
  */
 public abstract class Statement extends AbstractNode {
-  protected Statement(ExpressionType nodeType, Type type) {
-    super(nodeType, type);
-  }
+    protected Statement(ExpressionType nodeType, Type type) {
+        super(nodeType, type);
+    }
 
-  @Override final void accept(ExpressionWriter writer, int lprec, int rprec) {
-    assert lprec == 0;
-    assert rprec == 0;
-    accept0(writer);
-  }
+    @Override
+    final void accept(ExpressionWriter writer, int lprec, int rprec) {
+        assert lprec == 0;
+        assert rprec == 0;
+        accept0(writer);
+    }
 
-  // Make return type more specific. A statement can only become a different
-  // kind of statement; it can't become an expression.
-  @Override public abstract Statement accept(Shuttle shuttle);
+    // Make return type more specific. A statement can only become a different
+    // kind of statement; it can't become an expression.
+    @Override
+    public abstract Statement accept(Shuttle shuttle);
 }
 
 // End Statement.java

@@ -23,61 +23,65 @@ import java.util.Objects;
  * Represents indexing a property or array.
  */
 public class IndexExpression extends Expression {
-  public final Expression array;
-  public final List<Expression> indexExpressions;
+    public final Expression array;
+    public final List<Expression> indexExpressions;
 
-  public IndexExpression(Expression array, List<Expression> indexExpressions) {
-    super(ExpressionType.ArrayIndex, Types.getComponentType(array.getType()));
-    assert array != null : "array should not be null";
-    assert indexExpressions != null : "indexExpressions should not be null";
-    assert !indexExpressions.isEmpty() : "indexExpressions should not be empty";
-    this.array = array;
-    this.indexExpressions = indexExpressions;
-  }
-
-  @Override public Expression accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    Expression array = this.array.accept(shuttle);
-    List<Expression> indexExpressions = Expressions.acceptExpressions(
-        this.indexExpressions, shuttle);
-    return shuttle.visit(this, array, indexExpressions);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept(ExpressionWriter writer, int lprec, int rprec) {
-    array.accept(writer, lprec, nodeType.lprec);
-    writer.list("[", ", ", "]", indexExpressions);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public IndexExpression(Expression array, List<Expression> indexExpressions) {
+        super(ExpressionType.ArrayIndex, Types.getComponentType(array.getType()));
+        assert array != null : "array should not be null";
+        assert indexExpressions != null : "indexExpressions should not be null";
+        assert !indexExpressions.isEmpty() : "indexExpressions should not be empty";
+        this.array = array;
+        this.indexExpressions = indexExpressions;
     }
 
-    IndexExpression that = (IndexExpression) o;
-
-    if (!array.equals(that.array)) {
-      return false;
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        Expression array = this.array.accept(shuttle);
+        List<Expression> indexExpressions = Expressions.acceptExpressions(
+                this.indexExpressions, shuttle);
+        return shuttle.visit(this, array, indexExpressions);
     }
-    if (!indexExpressions.equals(that.indexExpressions)) {
-      return false;
+
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
     }
 
-    return true;
-  }
+    @Override
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        array.accept(writer, lprec, nodeType.lprec);
+        writer.list("[", ", ", "]", indexExpressions);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, array, indexExpressions);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        IndexExpression that = (IndexExpression) o;
+
+        if (!array.equals(that.array)) {
+            return false;
+        }
+        if (!indexExpressions.equals(that.indexExpressions)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, array, indexExpressions);
+    }
 }
 
 // End IndexExpression.java

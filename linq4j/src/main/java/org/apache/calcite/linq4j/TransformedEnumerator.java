@@ -16,36 +16,37 @@
  */
 package org.apache.calcite.linq4j;
 
-/** Enumerator that applies a transform to each value from a backing
+/**
+ * Enumerator that applies a transform to each value from a backing
  * enumerator.
  *
  * @param <F> Element type of backing enumerator
  * @param <E> Element type
  */
 public abstract class TransformedEnumerator<F, E> implements Enumerator<E> {
-  protected final Enumerator<F> enumerator;
+    protected final Enumerator<F> enumerator;
 
-  public TransformedEnumerator(Enumerator<F> enumerator) {
-    this.enumerator = enumerator;
-  }
+    public TransformedEnumerator(Enumerator<F> enumerator) {
+        this.enumerator = enumerator;
+    }
 
-  protected abstract E transform(F from);
+    protected abstract E transform(F from);
 
-  public boolean moveNext() {
-    return enumerator.moveNext();
-  }
+    public boolean moveNext() {
+        return enumerator.moveNext();
+    }
 
-  public E current() {
-    return transform(enumerator.current());
-  }
+    public E current() {
+        return transform(enumerator.current());
+    }
 
-  public void reset() {
-    enumerator.reset();
-  }
+    public void reset() {
+        enumerator.reset();
+    }
 
-  public void close() {
-    enumerator.close();
-  }
+    public void close() {
+        enumerator.close();
+    }
 }
 
 // End TransformedEnumerator.java

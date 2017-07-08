@@ -24,58 +24,62 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Represents a named parameter expression.
  */
 public class ParameterExpression extends Expression {
-  private static final AtomicInteger SEQ = new AtomicInteger();
+    private static final AtomicInteger SEQ = new AtomicInteger();
 
-  public final int modifier;
-  public final String name;
+    public final int modifier;
+    public final String name;
 
-  public ParameterExpression(Type type) {
-    this(0, type, "p" + SEQ.getAndIncrement());
-  }
+    public ParameterExpression(Type type) {
+        this(0, type, "p" + SEQ.getAndIncrement());
+    }
 
-  public ParameterExpression(int modifier, Type type, String name) {
-    super(ExpressionType.Parameter, type);
-    assert name != null : "name should not be null";
-    assert Character.isJavaIdentifierStart(name.charAt(0))
-      : "parameter name should be valid java identifier: "
-        + name + ". The first character is invalid.";
-    this.modifier = modifier;
-    this.name = name;
-  }
+    public ParameterExpression(int modifier, Type type, String name) {
+        super(ExpressionType.Parameter, type);
+        assert name != null : "name should not be null";
+        assert Character.isJavaIdentifierStart(name.charAt(0))
+                : "parameter name should be valid java identifier: "
+                + name + ". The first character is invalid.";
+        this.modifier = modifier;
+        this.name = name;
+    }
 
-  @Override public Expression accept(Shuttle shuttle) {
-    return shuttle.visit(this);
-  }
+    @Override
+    public Expression accept(Shuttle shuttle) {
+        return shuttle.visit(this);
+    }
 
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
 
-  public Object evaluate(Evaluator evaluator) {
-    return evaluator.peek(this);
-  }
+    public Object evaluate(Evaluator evaluator) {
+        return evaluator.peek(this);
+    }
 
-  @Override void accept(ExpressionWriter writer, int lprec, int rprec) {
-    writer.append(name);
-  }
+    @Override
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        writer.append(name);
+    }
 
-  String declString() {
-    return declString(type);
-  }
+    String declString() {
+        return declString(type);
+    }
 
-  String declString(Type type) {
-    final String modifiers = Modifier.toString(modifier);
-    return modifiers + (modifiers.isEmpty() ? "" : " ") + Types.className(type)
-        + " " + name;
-  }
+    String declString(Type type) {
+        final String modifiers = Modifier.toString(modifier);
+        return modifiers + (modifiers.isEmpty() ? "" : " ") + Types.className(type)
+                + " " + name;
+    }
 
-  @Override public boolean equals(Object o) {
-    return this == o;
-  }
+    @Override
+    public boolean equals(Object o) {
+        return this == o;
+    }
 
-  @Override public int hashCode() {
-    return System.identityHashCode(this);
-  }
+    @Override
+    public int hashCode() {
+        return System.identityHashCode(this);
+    }
 }
 
 // End ParameterExpression.java

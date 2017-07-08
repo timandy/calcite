@@ -21,7 +21,7 @@ import java.util.Objects;
 
 /**
  * Represents an expression that has a conditional operator.
- *
+ * <p>
  * <p>With an odd number of expressions
  * {c0, e0, c1, e1, ..., c<sub>n-1</sub>, e<sub>n-1</sub>, e<sub>n</sub>}
  * represents "if (c0) e0 else if (c1) e1 ... else e<sub>n</sub>";
@@ -32,69 +32,73 @@ import java.util.Objects;
  * </p>
  */
 public class ConditionalStatement extends Statement {
-  public final List<Node> expressionList;
+    public final List<Node> expressionList;
 
-  public ConditionalStatement(List<Node> expressionList) {
-    super(ExpressionType.Conditional, Void.TYPE);
-    assert expressionList != null : "expressionList should not be null";
-    this.expressionList = expressionList;
-  }
-
-  @Override public Statement accept(Shuttle shuttle) {
-    shuttle = shuttle.preVisit(this);
-    List<Node> list = Expressions.acceptNodes(expressionList, shuttle);
-    return shuttle.visit(this, list);
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept0(ExpressionWriter writer) {
-    for (int i = 0; i < expressionList.size() - 1; i += 2) {
-      if (i > 0) {
-        writer.backUp();
-        writer.append(" else ");
-      }
-      writer.append("if (")
-          .append(expressionList.get(i))
-          .append(") ")
-          .append(Blocks.toBlock(expressionList.get(i + 1)));
-    }
-    if (expressionList.size() % 2 == 1) {
-      writer.backUp();
-      writer.append(" else ")
-          .append(Blocks.toBlock(last(expressionList)));
-    }
-  }
-
-  private static <E> E last(List<E> collection) {
-    return collection.get(collection.size() - 1);
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public ConditionalStatement(List<Node> expressionList) {
+        super(ExpressionType.Conditional, Void.TYPE);
+        assert expressionList != null : "expressionList should not be null";
+        this.expressionList = expressionList;
     }
 
-    ConditionalStatement that = (ConditionalStatement) o;
-
-    if (!expressionList.equals(that.expressionList)) {
-      return false;
+    private static <E> E last(List<E> collection) {
+        return collection.get(collection.size() - 1);
     }
 
-    return true;
-  }
+    @Override
+    public Statement accept(Shuttle shuttle) {
+        shuttle = shuttle.preVisit(this);
+        List<Node> list = Expressions.acceptNodes(expressionList, shuttle);
+        return shuttle.visit(this, list);
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, expressionList);
-  }
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    void accept0(ExpressionWriter writer) {
+        for (int i = 0; i < expressionList.size() - 1; i += 2) {
+            if (i > 0) {
+                writer.backUp();
+                writer.append(" else ");
+            }
+            writer.append("if (")
+                    .append(expressionList.get(i))
+                    .append(") ")
+                    .append(Blocks.toBlock(expressionList.get(i + 1)));
+        }
+        if (expressionList.size() % 2 == 1) {
+            writer.backUp();
+            writer.append(" else ")
+                    .append(Blocks.toBlock(last(expressionList)));
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        ConditionalStatement that = (ConditionalStatement) o;
+
+        if (!expressionList.equals(that.expressionList)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, expressionList);
+    }
 }
 
 // End ConditionalStatement.java

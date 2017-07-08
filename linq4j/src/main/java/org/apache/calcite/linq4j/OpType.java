@@ -20,7 +20,7 @@ package org.apache.calcite.linq4j;
  * Operator type.
  */
 public enum OpType {
-  WHERE,
+    WHERE,
 }
 
 // End OpType.java

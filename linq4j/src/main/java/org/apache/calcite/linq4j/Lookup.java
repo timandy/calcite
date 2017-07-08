@@ -27,18 +27,17 @@ import java.util.Map;
  * @param <V> Value type
  */
 public interface Lookup<K, V>
-    extends Map<K, Enumerable<V>>, Enumerable<Grouping<K, V>> {
-  /**
-   * Applies a transform function to each key and its associated values and
-   * returns the results.
-   *
-   * @param resultSelector Result selector
-   * @param <TResult> Result type
-   *
-   * @return Enumerable over results
-   */
-  <TResult> Enumerable<TResult> applyResultSelector(
-      Function2<K, Enumerable<V>, TResult> resultSelector);
+        extends Map<K, Enumerable<V>>, Enumerable<Grouping<K, V>> {
+    /**
+     * Applies a transform function to each key and its associated values and
+     * returns the results.
+     *
+     * @param resultSelector Result selector
+     * @param <TResult>      Result type
+     * @return Enumerable over results
+     */
+    <TResult> Enumerable<TResult> applyResultSelector(
+            Function2<K, Enumerable<V>, TResult> resultSelector);
 }
 
 // End Lookup.java

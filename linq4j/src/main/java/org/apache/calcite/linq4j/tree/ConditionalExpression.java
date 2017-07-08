@@ -22,7 +22,7 @@ import java.util.Objects;
 
 /**
  * Represents an expression that has a conditional operator.
- *
+ * <p>
  * <p>With an odd number of expressions
  * {c0, e0, c1, e1, ..., c<sub>n-1</sub>, e<sub>n-1</sub>, e<sub>n</sub>}
  * represents "if (c0) e0 else if (c1) e1 ... else e<sub>n</sub>";
@@ -33,55 +33,58 @@ import java.util.Objects;
  * </p>
  */
 public class ConditionalExpression extends AbstractNode {
-  final List<Node> expressionList;
+    final List<Node> expressionList;
 
-  public ConditionalExpression(List<Node> expressionList, Type type) {
-    super(ExpressionType.Conditional, type);
-    assert expressionList != null : "expressionList should not be null";
-    this.expressionList = expressionList;
-  }
-
-  public <R> R accept(Visitor<R> visitor) {
-    return visitor.visit(this);
-  }
-
-  @Override void accept(ExpressionWriter writer, int lprec, int rprec) {
-    for (int i = 0; i < expressionList.size(); i += 2) {
-      writer.append(i > 0 ? " else if (" : "if (")
-          .append(expressionList.get(i))
-          .append(") ")
-          .append(Blocks.toBlock(expressionList.get(i + 1)));
-    }
-    if (expressionList.size() % 2 == 1) {
-      writer.append(" else ")
-          .append(
-              Blocks.toBlock(expressionList.get(expressionList.size() - 1)));
-    }
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
+    public ConditionalExpression(List<Node> expressionList, Type type) {
+        super(ExpressionType.Conditional, type);
+        assert expressionList != null : "expressionList should not be null";
+        this.expressionList = expressionList;
     }
 
-    ConditionalExpression that = (ConditionalExpression) o;
-
-    if (!expressionList.equals(that.expressionList)) {
-      return false;
+    public <R> R accept(Visitor<R> visitor) {
+        return visitor.visit(this);
     }
 
-    return true;
-  }
+    @Override
+    void accept(ExpressionWriter writer, int lprec, int rprec) {
+        for (int i = 0; i < expressionList.size(); i += 2) {
+            writer.append(i > 0 ? " else if (" : "if (")
+                    .append(expressionList.get(i))
+                    .append(") ")
+                    .append(Blocks.toBlock(expressionList.get(i + 1)));
+        }
+        if (expressionList.size() % 2 == 1) {
+            writer.append(" else ")
+                    .append(
+                            Blocks.toBlock(expressionList.get(expressionList.size() - 1)));
+        }
+    }
 
-  @Override public int hashCode() {
-    return Objects.hash(nodeType, type, expressionList);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        ConditionalExpression that = (ConditionalExpression) o;
+
+        if (!expressionList.equals(that.expressionList)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeType, type, expressionList);
+    }
 }
 
 // End ConditionalExpression.java

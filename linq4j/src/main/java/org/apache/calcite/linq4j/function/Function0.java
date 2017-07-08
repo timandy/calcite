@@ -22,7 +22,7 @@ package org.apache.calcite.linq4j.function;
  * @param <R> Result type
  */
 public interface Function0<R> extends Function<R> {
-  R apply();
+    R apply();
 }
 
 // End Function0.java

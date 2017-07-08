@@ -22,27 +22,31 @@ package org.apache.calcite.linq4j;
  * @param <T> type of value to return, as passed from the delegate enumerator
  */
 public class DelegatingEnumerator<T> implements Enumerator<T> {
-  protected final Enumerator<T> delegate;
+    protected final Enumerator<T> delegate;
 
-  public DelegatingEnumerator(Enumerator<T> delegate) {
-    this.delegate = delegate;
-  }
+    public DelegatingEnumerator(Enumerator<T> delegate) {
+        this.delegate = delegate;
+    }
 
-  @Override public T current() {
-    return delegate.current();
-  }
+    @Override
+    public T current() {
+        return delegate.current();
+    }
 
-  @Override public boolean moveNext() {
-    return delegate.moveNext();
-  }
+    @Override
+    public boolean moveNext() {
+        return delegate.moveNext();
+    }
 
-  @Override public void reset() {
-    delegate.reset();
-  }
+    @Override
+    public void reset() {
+        delegate.reset();
+    }
 
-  @Override public void close() {
-    delegate.close();
-  }
+    @Override
+    public void close() {
+        delegate.close();
+    }
 }
 
 // End DelegatingEnumerator.java

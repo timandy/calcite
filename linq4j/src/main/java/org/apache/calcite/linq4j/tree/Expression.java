@@ -23,33 +23,33 @@ import java.lang.reflect.Type;
  */
 public abstract class Expression extends AbstractNode {
 
-  /**
-   * Creates an Expression.
-   *
-   * <p>The type of the expression may, at the caller's discretion, be a
-   * regular class (because {@link Class} implements {@link Type}) or it may
-   * be a different implementation that retains information about type
-   * parameters.</p>
-   *
-   * @param nodeType Node type
-   * @param type Type of the expression
-   */
-  public Expression(ExpressionType nodeType, Type type) {
-    super(nodeType, type);
-    assert nodeType != null;
-    assert type != null;
-  }
+    /**
+     * Creates an Expression.
+     * <p>
+     * <p>The type of the expression may, at the caller's discretion, be a
+     * regular class (because {@link Class} implements {@link Type}) or it may
+     * be a different implementation that retains information about type
+     * parameters.</p>
+     *
+     * @param nodeType Node type
+     * @param type     Type of the expression
+     */
+    public Expression(ExpressionType nodeType, Type type) {
+        super(nodeType, type);
+        assert nodeType != null;
+        assert type != null;
+    }
 
-  @Override // More specific return type.
-  public abstract Expression accept(Shuttle shuttle);
+    @Override // More specific return type.
+    public abstract Expression accept(Shuttle shuttle);
 
-  /**
-   * Indicates that the node can be reduced to a simpler node. If this
-   * returns true, Reduce() can be called to produce the reduced form.
-   */
-  public boolean canReduce() {
-    return false;
-  }
+    /**
+     * Indicates that the node can be reduced to a simpler node. If this
+     * returns true, Reduce() can be called to produce the reduced form.
+     */
+    public boolean canReduce() {
+        return false;
+    }
 }
 
 // End Expression.java

@@ -22,7 +22,7 @@ package org.apache.calcite.linq4j.function;
  * @param <T0> Type of argument #0
  */
 public interface IntegerFunction1<T0> extends Function<Integer> {
-  int apply(T0 v0);
+    int apply(T0 v0);
 }
 
 // End IntegerFunction1.java

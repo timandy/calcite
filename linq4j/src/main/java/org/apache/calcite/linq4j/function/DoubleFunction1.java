@@ -22,7 +22,7 @@ package org.apache.calcite.linq4j.function;
  * @param <T0> Type of argument #0
  */
 public interface DoubleFunction1<T0> extends Function<Double> {
-  double apply(T0 v0);
+    double apply(T0 v0);
 }
 
 // End DoubleFunction1.java
