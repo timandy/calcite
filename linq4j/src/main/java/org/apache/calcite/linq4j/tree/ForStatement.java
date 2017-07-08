@@ -92,17 +92,7 @@ public class ForStatement extends Statement {
 
         ForStatement that = (ForStatement) o;
 
-        if (!body.equals(that.body)) {
-            return false;
-        }
-        if (condition != null ? !condition.equals(that.condition) : that
-                .condition != null) {
-            return false;
-        }
-        if (!declarations.equals(that.declarations)) {
-            return false;
-        }
-        return post != null ? post.equals(that.post) : that.post == null;
+        return body.equals(that.body) && (condition != null ? condition.equals(that.condition) : that.condition == null) && declarations.equals(that.declarations) && (post != null ? post.equals(that.post) : that.post == null);
     }
 
     @Override

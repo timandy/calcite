@@ -184,13 +184,7 @@ public class BinaryExpression extends Expression {
 
         BinaryExpression that = (BinaryExpression) o;
 
-        if (!expression0.equals(that.expression0)) {
-            return false;
-        }
-        if (!expression1.equals(that.expression1)) {
-            return false;
-        }
-        return primitive == that.primitive;
+        return expression0.equals(that.expression0) && expression1.equals(that.expression1) && primitive == that.primitive;
     }
 
     @Override

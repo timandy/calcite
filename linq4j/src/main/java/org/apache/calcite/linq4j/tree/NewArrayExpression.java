@@ -85,14 +85,7 @@ public class NewArrayExpression extends Expression {
 
         NewArrayExpression that = (NewArrayExpression) o;
 
-        if (dimension != that.dimension) {
-            return false;
-        }
-        if (bound != null ? !bound.equals(that.bound) : that.bound != null) {
-            return false;
-        }
-        return expressions != null ? expressions.equals(that.expressions) : that
-                .expressions == null;
+        return dimension == that.dimension && (bound != null ? bound.equals(that.bound) : that.bound == null) && (expressions != null ? expressions.equals(that.expressions) : that.expressions == null);
     }
 
     @Override

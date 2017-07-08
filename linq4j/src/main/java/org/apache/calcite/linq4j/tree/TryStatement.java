@@ -74,13 +74,7 @@ public class TryStatement extends Statement {
 
         TryStatement that = (TryStatement) o;
 
-        if (!body.equals(that.body)) {
-            return false;
-        }
-        if (!catchBlocks.equals(that.catchBlocks)) {
-            return false;
-        }
-        return fynally != null ? fynally.equals(that.fynally) : that.fynally == null;
+        return body.equals(that.body) && catchBlocks.equals(that.catchBlocks) && (fynally != null ? fynally.equals(that.fynally) : that.fynally == null);
     }
 
     @Override

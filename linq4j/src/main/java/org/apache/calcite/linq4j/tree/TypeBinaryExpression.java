@@ -68,10 +68,7 @@ public class TypeBinaryExpression extends Expression {
 
         TypeBinaryExpression that = (TypeBinaryExpression) o;
 
-        if (!expression.equals(that.expression)) {
-            return false;
-        }
-        return type != null ? type.equals(that.type) : that.type == null;
+        return expression.equals(that.expression) && (type != null ? type.equals(that.type) : that.type == null);
     }
 
     @Override

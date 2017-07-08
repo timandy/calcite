@@ -73,14 +73,7 @@ public class FieldDeclaration extends MemberDeclaration {
 
         FieldDeclaration that = (FieldDeclaration) o;
 
-        if (modifier != that.modifier) {
-            return false;
-        }
-        if (initializer != null ? !initializer.equals(that.initializer) : that
-                .initializer != null) {
-            return false;
-        }
-        return parameter.equals(that.parameter);
+        return modifier == that.modifier && (initializer != null ? initializer.equals(that.initializer) : that.initializer == null) && parameter.equals(that.parameter);
     }
 
     @Override

@@ -76,13 +76,7 @@ public class TernaryExpression extends Expression {
 
         TernaryExpression that = (TernaryExpression) o;
 
-        if (!expression0.equals(that.expression0)) {
-            return false;
-        }
-        if (!expression1.equals(that.expression1)) {
-            return false;
-        }
-        return expression2.equals(that.expression2);
+        return expression0.equals(that.expression0) && expression1.equals(that.expression1) && expression2.equals(that.expression2);
     }
 
     @Override

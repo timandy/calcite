@@ -79,16 +79,7 @@ public class NewExpression extends Expression {
 
         NewExpression that = (NewExpression) o;
 
-        if (arguments != null ? !arguments.equals(that.arguments)
-                : that.arguments != null) {
-            return false;
-        }
-        if (memberDeclarations
-                != null ? !memberDeclarations.equals(that.memberDeclarations)
-                : that.memberDeclarations != null) {
-            return false;
-        }
-        return type.equals(that.type);
+        return (arguments != null ? arguments.equals(that.arguments) : that.arguments == null) && (memberDeclarations != null ? memberDeclarations.equals(that.memberDeclarations) : that.memberDeclarations == null) && type.equals(that.type);
     }
 
     @Override

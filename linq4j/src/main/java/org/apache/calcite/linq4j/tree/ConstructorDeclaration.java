@@ -16,7 +16,6 @@
  */
 package org.apache.calcite.linq4j.tree;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.Modifier;
@@ -70,14 +69,12 @@ public class ConstructorDeclaration extends MemberDeclaration {
                 .append(resultType)
                 .list("(", ", ", ")",
                         Lists.transform(parameters,
-                                new Function<ParameterExpression, String>() {
-                                    public String apply(ParameterExpression parameter) {
-                                        final String modifiers =
-                                                Modifier.toString(parameter.modifier);
-                                        return modifiers + (modifiers.isEmpty() ? "" : " ")
-                                                + Types.className(parameter.getType()) + " "
-                                                + parameter.name;
-                                    }
+                                parameter -> {
+                                    final String modifiers1 =
+                                            Modifier.toString(parameter.modifier);
+                                    return modifiers1 + (modifiers1.isEmpty() ? "" : " ")
+                                            + Types.className(parameter.getType()) + " "
+                                            + parameter.name;
                                 }))
                 .append(' ').append(body);
         writer.newlineAndIndent();
@@ -94,16 +91,7 @@ public class ConstructorDeclaration extends MemberDeclaration {
 
         ConstructorDeclaration that = (ConstructorDeclaration) o;
 
-        if (modifier != that.modifier) {
-            return false;
-        }
-        if (!body.equals(that.body)) {
-            return false;
-        }
-        if (!parameters.equals(that.parameters)) {
-            return false;
-        }
-        return resultType.equals(that.resultType);
+        return modifier == that.modifier && body.equals(that.body) && parameters.equals(that.parameters) && resultType.equals(that.resultType);
     }
 
     @Override

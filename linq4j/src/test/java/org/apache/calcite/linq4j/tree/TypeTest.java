@@ -61,7 +61,7 @@ public class TypeTest {
         // mix a primitive with an object
         // (correct answer is java.io.Serializable)
         assertEquals(Object.class, Types.gcd(String.class, int.class));
-        java.io.Serializable o = true ? "x" : 1;
+        java.io.Serializable o = "x";
     }
 }
 

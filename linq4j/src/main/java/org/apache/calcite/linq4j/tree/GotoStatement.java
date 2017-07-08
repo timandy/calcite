@@ -117,15 +117,8 @@ public class GotoStatement extends Statement {
 
         GotoStatement that = (GotoStatement) o;
 
-        if (expression != null ? !expression.equals(that.expression) : that
-                .expression != null) {
-            return false;
-        }
-        if (kind != that.kind) {
-            return false;
-        }
-        return labelTarget != null ? labelTarget.equals(that.labelTarget) : that
-                .labelTarget == null;
+        return (expression != null ? expression.equals(that.expression) : that
+                .expression == null) && kind == that.kind && (labelTarget != null ? labelTarget.equals(that.labelTarget) : that.labelTarget == null);
     }
 
     @Override

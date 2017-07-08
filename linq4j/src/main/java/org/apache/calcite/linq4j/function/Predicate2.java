@@ -28,6 +28,7 @@ public interface Predicate2<T0, T1> extends Function<Boolean> {
      *
      * @see org.apache.calcite.linq4j.function.Functions#truePredicate1()
      */
+    @SuppressWarnings("Convert2Lambda")
     Predicate2<Object, Object> TRUE = new Predicate2<Object, Object>() {
         public boolean apply(Object v0, Object v1) {
             return true;
@@ -39,6 +40,7 @@ public interface Predicate2<T0, T1> extends Function<Boolean> {
      *
      * @see org.apache.calcite.linq4j.function.Functions#falsePredicate1()
      */
+    @SuppressWarnings("Convert2Lambda")
     Predicate2<Object, Object> FALSE = new Predicate2<Object, Object>() {
         public boolean apply(Object v0, Object v1) {
             return false;

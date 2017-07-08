@@ -92,11 +92,8 @@ public class MemberExpression extends Expression {
 
         MemberExpression that = (MemberExpression) o;
 
-        if (expression != null ? !expression.equals(that.expression) : that
-                .expression != null) {
-            return false;
-        }
-        return field.equals(that.field);
+        return (expression != null ? expression.equals(that.expression) : that
+                .expression == null) && field.equals(that.field);
     }
 
     @Override

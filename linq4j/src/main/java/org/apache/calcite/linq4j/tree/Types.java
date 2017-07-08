@@ -150,7 +150,7 @@ public abstract class Types {
     }
 
     static Class[] toClassArray(Collection<Type> types) {
-        List<Class> classes = new ArrayList<Class>();
+        List<Class> classes = new ArrayList<>();
         for (Type type : types) {
             classes.add(toClass(type));
         }
@@ -158,7 +158,7 @@ public abstract class Types {
     }
 
     static Class[] toClassArray(Iterable<? extends Expression> arguments) {
-        List<Class> classes = new ArrayList<Class>();
+        List<Class> classes = new ArrayList<>();
         for (Expression argument : arguments) {
             classes.add(toClass(argument.getType()));
         }
@@ -387,9 +387,6 @@ public abstract class Types {
     }
 
     public static void discard(Object o) {
-        if (false) {
-            discard(o);
-        }
     }
 
     /**

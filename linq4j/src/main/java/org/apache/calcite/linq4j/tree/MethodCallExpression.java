@@ -124,14 +124,7 @@ public class MethodCallExpression extends Expression {
 
         MethodCallExpression that = (MethodCallExpression) o;
 
-        if (!expressions.equals(that.expressions)) {
-            return false;
-        }
-        if (!method.equals(that.method)) {
-            return false;
-        }
-        return targetExpression != null ? targetExpression.equals(that
-                .targetExpression) : that.targetExpression == null;
+        return expressions.equals(that.expressions) && method.equals(that.method) && (targetExpression != null ? targetExpression.equals(that.targetExpression) : that.targetExpression == null);
     }
 
     @Override

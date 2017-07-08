@@ -98,11 +98,11 @@ public class PrimitiveTest {
      */
     @Test
     public void testNumber() {
-        Number number = Primitive.SHORT.number(Integer.valueOf(2));
+        Number number = Primitive.SHORT.number(2);
         assertTrue(number instanceof Short);
         assertEquals(2, number.shortValue());
 
-        number = Primitive.FLOAT.number(Integer.valueOf(2));
+        number = Primitive.FLOAT.number(2);
         assertTrue(number instanceof Float);
         assertEquals(2.0d, number.doubleValue(), 0d);
 
@@ -136,7 +136,7 @@ public class PrimitiveTest {
      */
     @Test
     public void testSendSource() {
-        final List<Object> list = new ArrayList<Object>();
+        final List<Object> list = new ArrayList<>();
         for (Primitive primitive : Primitive.values()) {
             primitive.send(
                     new Primitive.Source() {

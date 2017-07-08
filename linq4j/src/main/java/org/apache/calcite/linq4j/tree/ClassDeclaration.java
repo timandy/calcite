@@ -80,26 +80,7 @@ public class ClassDeclaration extends MemberDeclaration {
         }
 
         ClassDeclaration that = (ClassDeclaration) o;
-
-        if (modifier != that.modifier) {
-            return false;
-        }
-        if (!classClass.equals(that.classClass)) {
-            return false;
-        }
-        if (extended != null ? !extended.equals(that.extended) : that.extended
-                != null) {
-            return false;
-        }
-        if (implemented != null ? !implemented.equals(that.implemented) : that
-                .implemented != null) {
-            return false;
-        }
-        if (memberDeclarations != null ? !memberDeclarations.equals(that
-                .memberDeclarations) : that.memberDeclarations != null) {
-            return false;
-        }
-        return name.equals(that.name);
+        return modifier == that.modifier && classClass.equals(that.classClass) && (extended != null ? extended.equals(that.extended) : that.extended == null) && (implemented != null ? implemented.equals(that.implemented) : that.implemented == null) && (memberDeclarations != null ? memberDeclarations.equals(that.memberDeclarations) : that.memberDeclarations == null) && name.equals(that.name);
     }
 
     @Override

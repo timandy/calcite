@@ -16,7 +16,6 @@
  */
 package org.apache.calcite.linq4j.tree;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.Constructor;
@@ -158,13 +157,11 @@ public class ConstantExpression extends Expression {
             writer.append("new ").append(value.getClass());
             list(writer,
                     Lists.transform(Arrays.asList(value.getClass().getFields()),
-                            new Function<Field, Object>() {
-                                public Object apply(Field field) {
-                                    try {
-                                        return field.get(value);
-                                    } catch (IllegalAccessException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                            field -> {
+                                try {
+                                    return field.get(value);
+                                } catch (IllegalAccessException e) {
+                                    throw new RuntimeException(e);
                                 }
                             }),
                     "(\n", ",\n", ")");

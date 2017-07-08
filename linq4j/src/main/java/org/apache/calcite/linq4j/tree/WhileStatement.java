@@ -65,10 +65,7 @@ public class WhileStatement extends Statement {
 
         WhileStatement that = (WhileStatement) o;
 
-        if (!body.equals(that.body)) {
-            return false;
-        }
-        return condition.equals(that.condition);
+        return body.equals(that.body) && condition.equals(that.condition);
     }
 
     @Override

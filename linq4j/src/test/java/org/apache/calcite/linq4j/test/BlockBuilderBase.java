@@ -66,8 +66,7 @@ public final class BlockBuilderBase {
                 b.add(stmt);
             }
         }
-        BlockStatement bs = b.toBlock();
-        return bs;
+        return b.toBlock();
     }
 
     public static ParameterExpression bool(String name) {

@@ -24,8 +24,8 @@ import java.util.List;
  */
 class Evaluator {
     final List<ParameterExpression> parameters =
-            new ArrayList<ParameterExpression>();
-    final List<Object> values = new ArrayList<Object>();
+            new ArrayList<>();
+    final List<Object> values = new ArrayList<>();
 
     Evaluator() {
     }

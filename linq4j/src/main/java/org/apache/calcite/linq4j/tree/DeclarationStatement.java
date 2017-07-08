@@ -94,14 +94,7 @@ public class DeclarationStatement extends Statement {
 
         DeclarationStatement that = (DeclarationStatement) o;
 
-        if (modifiers != that.modifiers) {
-            return false;
-        }
-        if (initializer != null ? !initializer.equals(that.initializer) : that
-                .initializer != null) {
-            return false;
-        }
-        return parameter.equals(that.parameter);
+        return modifiers == that.modifiers && (initializer != null ? initializer.equals(that.initializer) : that.initializer == null) && parameter.equals(that.parameter);
     }
 
     @Override

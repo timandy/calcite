@@ -36,27 +36,15 @@ public class FunctionTest {
         // a miss, then a hit
         Assert.assertEquals("[A, C, D]",
                 Functions.filter(abc,
-                        new Predicate1<String>() {
-                            public boolean apply(String v1) {
-                                return !v1.equals("B");
-                            }
-                        }).toString());
+                        v1 -> !v1.equals("B")).toString());
         // a hit, then all misses
         Assert.assertEquals("[A]",
                 Functions.filter(abc,
-                        new Predicate1<String>() {
-                            public boolean apply(String v1) {
-                                return v1.equals("A");
-                            }
-                        }).toString());
+                        v1 -> v1.equals("A")).toString());
         // two hits, then a miss
         Assert.assertEquals("[A, B, D]",
                 Functions.filter(abc,
-                        new Predicate1<String>() {
-                            public boolean apply(String v1) {
-                                return !v1.equals("C");
-                            }
-                        }).toString());
+                        v1 -> !v1.equals("C")).toString());
         Assert.assertSame(Collections.emptyList(),
                 Functions.filter(abc, Functions.falsePredicate1()));
         Assert.assertSame(abc,
@@ -72,11 +60,7 @@ public class FunctionTest {
         final List<Integer> empty = Collections.emptyList();
         Assert.assertFalse(
                 Functions.exists(ints,
-                        new Predicate1<Integer>() {
-                            public boolean apply(Integer v1) {
-                                return v1 > 20;
-                            }
-                        }));
+                        v1 -> v1 > 20));
         Assert.assertFalse(
                 Functions.exists(empty, Functions.falsePredicate1()));
         Assert.assertFalse(
@@ -92,25 +76,13 @@ public class FunctionTest {
         final List<Integer> empty = Collections.emptyList();
         Assert.assertFalse(
                 Functions.all(ints,
-                        new Predicate1<Integer>() {
-                            public boolean apply(Integer v1) {
-                                return v1 > 20;
-                            }
-                        }));
+                        v1 -> v1 > 20));
         Assert.assertTrue(
                 Functions.all(ints,
-                        new Predicate1<Integer>() {
-                            public boolean apply(Integer v1) {
-                                return v1 < 20;
-                            }
-                        }));
+                        v1 -> v1 < 20));
         Assert.assertFalse(
                 Functions.all(ints,
-                        new Predicate1<Integer>() {
-                            public boolean apply(Integer v1) {
-                                return v1 < 10;
-                            }
-                        }));
+                        v1 -> v1 < 10));
         Assert.assertTrue(
                 Functions.all(empty, Functions.falsePredicate1()));
         Assert.assertTrue(

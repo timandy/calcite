@@ -87,10 +87,7 @@ public abstract class AbstractNode implements Node {
 
         AbstractNode that = (AbstractNode) o;
 
-        if (nodeType != that.nodeType) {
-            return false;
-        }
-        return type != null ? type.equals(that.type) : that.type == null;
+        return nodeType == that.nodeType && (type != null ? type.equals(that.type) : that.type == null);
     }
 
     @Override

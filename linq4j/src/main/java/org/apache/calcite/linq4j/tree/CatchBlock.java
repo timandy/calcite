@@ -42,11 +42,7 @@ public class CatchBlock {
 
         CatchBlock that = (CatchBlock) o;
 
-        if (body != null ? !body.equals(that.body) : that.body != null) {
-            return false;
-        }
-        return parameter != null ? parameter.equals(that.parameter) : that
-                .parameter == null;
+        return (body != null ? body.equals(that.body) : that.body == null) && (parameter != null ? parameter.equals(that.parameter) : that.parameter == null);
     }
 
     @Override

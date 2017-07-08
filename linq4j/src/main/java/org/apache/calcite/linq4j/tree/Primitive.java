@@ -922,7 +922,7 @@ public enum Primitive {
             case BYTE:
                 return Byte.valueOf(stringValue);
             case CHAR:
-                return Character.valueOf(stringValue.charAt(0));
+                return stringValue.charAt(0);
             case DOUBLE:
                 return Double.valueOf(stringValue);
             case FLOAT:
@@ -952,17 +952,17 @@ public enum Primitive {
     public Number number(Number value) {
         switch (this) {
             case BYTE:
-                return Byte.valueOf(value.byteValue());
+                return value.byteValue();
             case DOUBLE:
-                return Double.valueOf(value.doubleValue());
+                return value.doubleValue();
             case FLOAT:
-                return Float.valueOf(value.floatValue());
+                return value.floatValue();
             case INT:
-                return Integer.valueOf(value.intValue());
+                return value.intValue();
             case LONG:
-                return Long.valueOf(value.longValue());
+                return value.longValue();
             case SHORT:
-                return Short.valueOf(value.shortValue());
+                return value.shortValue();
             default:
                 throw new AssertionError(this + ": " + value);
         }

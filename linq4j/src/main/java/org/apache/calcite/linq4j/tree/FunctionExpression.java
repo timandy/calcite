@@ -19,7 +19,6 @@ package org.apache.calcite.linq4j.tree;
 import org.apache.calcite.linq4j.function.Function;
 import org.apache.calcite.linq4j.function.Functions;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
@@ -80,14 +79,12 @@ public final class FunctionExpression<F extends Function<?>>
     }
 
     public Invokable compile() {
-        return new Invokable() {
-            public Object dynamicInvoke(Object... args) {
-                final Evaluator evaluator = new Evaluator();
-                for (int i = 0; i < args.length; i++) {
-                    evaluator.push(parameterList.get(i), args[i]);
-                }
-                return evaluator.evaluate(body);
+        return args -> {
+            final Evaluator evaluator = new Evaluator();
+            for (int i = 0; i < args.length; i++) {
+                evaluator.push(parameterList.get(i), args[i]);
             }
+            return evaluator.evaluate(body);
         };
     }
 
@@ -101,12 +98,7 @@ public final class FunctionExpression<F extends Function<?>>
             //noinspection unchecked
             dynamicFunction = (F) Proxy.newProxyInstance(getClass().getClassLoader(),
                     new Class[]{Types.toClass(type)},
-                    new InvocationHandler() {
-                        public Object invoke(Object proxy, Method method, Object[] args)
-                                throws Throwable {
-                            return x.dynamicInvoke(args);
-                        }
-                    });
+                    (proxy, method, args) -> x.dynamicInvoke(args));
         }
         return dynamicFunction;
     }
@@ -137,11 +129,11 @@ public final class FunctionExpression<F extends Function<?>>
         //    public Object apply(Object p1, Object p2) {
         //      return apply((Double) p1, (Integer) p2);
         //    }
-        List<String> params = new ArrayList<String>();
-        List<String> bridgeParams = new ArrayList<String>();
-        List<String> bridgeArgs = new ArrayList<String>();
-        List<String> boxBridgeParams = new ArrayList<String>();
-        List<String> boxBridgeArgs = new ArrayList<String>();
+        List<String> params = new ArrayList<>();
+        List<String> bridgeParams = new ArrayList<>();
+        List<String> bridgeArgs = new ArrayList<>();
+        List<String> boxBridgeParams = new ArrayList<>();
+        List<String> boxBridgeArgs = new ArrayList<>();
         for (ParameterExpression parameterExpression : parameterList) {
             final Type parameterType = parameterExpression.getType();
             final Type parameterBoxType = Types.box(parameterType);
@@ -245,14 +237,7 @@ public final class FunctionExpression<F extends Function<?>>
 
         FunctionExpression that = (FunctionExpression) o;
 
-        if (body != null ? !body.equals(that.body) : that.body != null) {
-            return false;
-        }
-        if (function != null ? !function.equals(that.function) : that.function
-                != null) {
-            return false;
-        }
-        return parameterList.equals(that.parameterList);
+        return (body != null ? body.equals(that.body) : that.body == null) && (function != null ? function.equals(that.function) : that.function == null) && parameterList.equals(that.parameterList);
     }
 
     @Override
